@@ -17,10 +17,14 @@ import BaseLayout from "../layouts/BaseLayout.astro";
           <span class="contact-link__label">Email</span>
           <span class="contact-link__val">hello@rogu3.com</span>
         </a>
-        <a href="https://instagram.com/rogu3" target="_blank" rel="noopener" class="contact-link">
-          <span class="contact-link__label">Instagram</span>
-          <span class="contact-link__val">@rogu3</span>
+        <a href="https://www.youtube.com/results?search_query=rogu3+studios" target="_blank" rel="noopener" class="contact-link">
+          <span class="contact-link__label">YouTube</span>
+          <span class="contact-link__val">ROGU3 Studios</span>
         </a>
+        <div class="contact-link contact-link--placeholder">
+          <span class="contact-link__label">Instagram</span>
+          <span class="contact-link__val">Coming soon</span>
+        </div>
       </div>
     </div>
 
@@ -108,6 +112,15 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 
   .contact-link:hover {
     opacity: 1;
+  }
+
+  .contact-link--placeholder {
+    cursor: default;
+    opacity: 0.35;
+  }
+
+  .contact-link--placeholder:hover {
+    opacity: 0.35;
   }
 
   .contact-link__label {
