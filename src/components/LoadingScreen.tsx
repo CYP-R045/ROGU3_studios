@@ -6,7 +6,6 @@ import gsap from "gsap";
 const BUBBLE = 240;
 const RING_R = 108;
 const CIRC = 2 * Math.PI * RING_R;
-const FILL_DURATION = 2800; // ms — total fill time
 
 interface LoadingScreenProps {
   onComplete?: () => void;
@@ -43,39 +42,12 @@ const LoadingScreen: React.FC<LoadingScreenProps> = ({ onComplete }) => {
     let pivot: THREE.Group | null = null;
     let frameId: number;
 
-    const loader = new GLTFLoader();
-    loader.load("/brand/Rogu3 eye logo .glb", (gltf) => {
-      const model = gltf.scene;
-      const box   = new THREE.Box3().setFromObject(model);
-      const center = box.getCenter(new THREE.Vector3());
-      model.position.sub(center);
-      pivot = new THREE.Group();
-      pivot.add(model);
-      scene.add(pivot);
-    });
-
     const animate = () => {
       frameId = requestAnimationFrame(animate);
       if (pivot) pivot.rotation.y += 0.018;
       renderer.render(scene, camera);
     };
     animate();
-
-    // ── Progress ring fill ─────────────────────────────────────────────────
-    const startTime = performance.now();
-
-    const tick = () => {
-      const p = Math.min((performance.now() - startTime) / FILL_DURATION, 1);
-      if (ringRef.current) {
-        ringRef.current.style.strokeDashoffset = String(CIRC * (1 - p));
-      }
-      if (p < 1) {
-        requestAnimationFrame(tick);
-      } else {
-        doMorph();
-      }
-    };
-    requestAnimationFrame(tick);
 
     // ── Morph sequence ─────────────────────────────────────────────────────
     const doMorph = () => {
@@ -119,6 +91,44 @@ const LoadingScreen: React.FC<LoadingScreenProps> = ({ onComplete }) => {
           },
         }, "+=0.1");
     };
+
+    // ── Load GLB — ring tracks real download progress ──────────────────────
+    const loader = new GLTFLoader();
+    loader.load(
+      "/brand/Rogu3 eye logo .glb",
+      (gltf) => {
+        // File fully loaded — mount model
+        const model = gltf.scene;
+        const box = new THREE.Box3().setFromObject(model);
+        const center = box.getCenter(new THREE.Vector3());
+        model.position.sub(center);
+        pivot = new THREE.Group();
+        pivot.add(model);
+        scene.add(pivot);
+        // Snap ring to 100%, brief pause so user sees it complete, then morph
+        if (ringRef.current) ringRef.current.style.strokeDashoffset = "0";
+        setTimeout(doMorph, 400);
+      },
+      (e) => {
+        // e.total is 0 when the server sends no Content-Length header;
+        // fall back to an indeterminate slow-fill so the ring still moves
+        const p = e.total > 0 ? e.loaded / e.total : null;
+        if (ringRef.current) {
+          if (p !== null) {
+            ringRef.current.style.strokeDashoffset = String(CIRC * (1 - p));
+          } else {
+            // Indeterminate: slowly creep to 90% using elapsed time as proxy
+            const elapsed = performance.now();
+            const soft = 1 - Math.exp(-elapsed / 30000); // asymptote toward 90%
+            ringRef.current.style.strokeDashoffset = String(CIRC * (1 - soft * 0.9));
+          }
+        }
+      },
+      (err) => {
+        console.error("GLB load error", err);
+        doMorph(); // don't block the user on error
+      }
+    );
 
     return () => {
       cancelAnimationFrame(frameId);
