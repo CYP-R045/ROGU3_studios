@@ -3,6 +3,117 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 ---
 
 <BaseLayout title="About — ROGU3">
-  <h1>About</h1>
-  <p>Coming soon.</p>
+  <section class="about-hero">
+    <p class="about-kicker">Est. 2024 — Toronto</p>
+    <h1 class="about-title">Built for<br />the outliers.</h1>
+    <p class="about-sub">
+      ROGU3 is an independent streetwear label rooted in Toronto's underground.
+      Every piece is designed for those who move different — uncompromising in craft,
+      unapologetic in identity.
+    </p>
+  </section>
+
+  <section class="about-body">
+    <div class="about-block">
+      <span class="about-label">The Vision</span>
+      <p>
+        We don't follow trends. We document a culture that already exists —
+        one built on late nights, raw creativity, and doing things on your own terms.
+        ROGU3 is the uniform for that world.
+      </p>
+    </div>
+
+    <div class="about-block">
+      <span class="about-label">The Craft</span>
+      <p>
+        Small runs. Considered fabrics. Each drop is limited intentionally —
+        not as a gimmick, but because quality over volume is the only way we know how to work.
+      </p>
+    </div>
+
+    <div class="about-block">
+      <span class="about-label">What's Next</span>
+      <p>
+        Studios, collaborations, and more on the way.
+        Follow the drops — things move fast when they move.
+      </p>
+    </div>
+  </section>
 </BaseLayout>
+
+<style>
+  .about-hero {
+    min-height: 80vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: clamp(80px, 10vw, 140px) clamp(24px, 6vw, 96px) clamp(48px, 6vw, 80px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+  }
+
+  .about-kicker {
+    margin: 0 0 20px;
+    font-size: 11px;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    opacity: 0.5;
+  }
+
+  .about-title {
+    margin: 0 0 28px;
+    font-size: clamp(52px, 8vw, 120px);
+    font-weight: 800;
+    line-height: 0.95;
+    letter-spacing: -0.02em;
+  }
+
+  .about-sub {
+    margin: 0;
+    max-width: 52ch;
+    font-size: clamp(15px, 1.4vw, 18px);
+    line-height: 1.65;
+    opacity: 0.75;
+  }
+
+  .about-body {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0;
+  }
+
+  .about-block {
+    padding: clamp(32px, 4vw, 56px) clamp(24px, 4vw, 56px);
+    border-right: 1px solid rgba(255, 255, 255, 0.07);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+  }
+
+  .about-block:last-child {
+    border-right: none;
+  }
+
+  .about-label {
+    display: block;
+    margin-bottom: 16px;
+    font-size: 10px;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    opacity: 0.45;
+  }
+
+  .about-block p {
+    margin: 0;
+    font-size: 15px;
+    line-height: 1.7;
+    opacity: 0.8;
+  }
+
+  @media (max-width: 760px) {
+    .about-body {
+      grid-template-columns: 1fr;
+    }
+
+    .about-block {
+      border-right: none;
+    }
+  }
+</style>

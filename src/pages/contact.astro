@@ -2,7 +2,215 @@
 import BaseLayout from "../layouts/BaseLayout.astro";
 ---
 
-<BaseLayout title="Contact">
-  <h1>Contact</h1>
-  <p>Coming soon...</p>
+<BaseLayout title="Contact — ROGU3">
+  <section class="contact-wrap">
+    <div class="contact-left">
+      <p class="contact-kicker">Get in touch</p>
+      <h1 class="contact-title">Let's talk.</h1>
+      <p class="contact-desc">
+        For wholesale, press, collaborations, or general inquiries —
+        reach out below or find us on Instagram.
+      </p>
+
+      <div class="contact-links">
+        <a href="mailto:hello@rogu3.com" class="contact-link">
+          <span class="contact-link__label">Email</span>
+          <span class="contact-link__val">hello@rogu3.com</span>
+        </a>
+        <a href="https://instagram.com/rogu3" target="_blank" rel="noopener" class="contact-link">
+          <span class="contact-link__label">Instagram</span>
+          <span class="contact-link__val">@rogu3</span>
+        </a>
+      </div>
+    </div>
+
+    <div class="contact-right">
+      <form class="contact-form" name="contact" method="POST" data-netlify="true">
+        <input type="hidden" name="form-name" value="contact" />
+
+        <div class="field">
+          <label for="name">Name</label>
+          <input id="name" name="name" type="text" placeholder="Your name" required />
+        </div>
+
+        <div class="field">
+          <label for="email">Email</label>
+          <input id="email" name="email" type="email" placeholder="your@email.com" required />
+        </div>
+
+        <div class="field">
+          <label for="message">Message</label>
+          <textarea id="message" name="message" rows="5" placeholder="What's on your mind?" required></textarea>
+        </div>
+
+        <button type="submit" class="contact-submit">Send message</button>
+      </form>
+    </div>
+  </section>
 </BaseLayout>
+
+<style>
+  .contact-wrap {
+    min-height: 100vh;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0;
+  }
+
+  /* ── Left panel ── */
+  .contact-left {
+    padding: clamp(100px, 12vw, 160px) clamp(24px, 5vw, 80px) clamp(48px, 6vw, 80px);
+    border-right: 1px solid rgba(255, 255, 255, 0.07);
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+  }
+
+  .contact-kicker {
+    margin: 0 0 18px;
+    font-size: 11px;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    opacity: 0.45;
+  }
+
+  .contact-title {
+    margin: 0 0 20px;
+    font-size: clamp(44px, 6vw, 88px);
+    font-weight: 800;
+    line-height: 0.95;
+    letter-spacing: -0.02em;
+  }
+
+  .contact-desc {
+    margin: 0 0 40px;
+    max-width: 40ch;
+    font-size: 15px;
+    line-height: 1.7;
+    opacity: 0.65;
+  }
+
+  .contact-links {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+  }
+
+  .contact-link {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    text-decoration: none;
+    color: inherit;
+    opacity: 0.75;
+    transition: opacity 0.2s ease;
+  }
+
+  .contact-link:hover {
+    opacity: 1;
+  }
+
+  .contact-link__label {
+    font-size: 10px;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    opacity: 0.5;
+  }
+
+  .contact-link__val {
+    font-size: 15px;
+    font-weight: 500;
+  }
+
+  /* ── Right panel / form ── */
+  .contact-right {
+    padding: clamp(100px, 12vw, 160px) clamp(24px, 5vw, 80px) clamp(48px, 6vw, 80px);
+    display: flex;
+    align-items: flex-end;
+  }
+
+  .contact-form {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+  }
+
+  .field {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  label {
+    font-size: 10px;
+    letter-spacing: 0.26em;
+    text-transform: uppercase;
+    opacity: 0.45;
+  }
+
+  input,
+  textarea {
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.10);
+    border-radius: 10px;
+    padding: 14px 16px;
+    color: inherit;
+    font-size: 15px;
+    font-family: inherit;
+    outline: none;
+    transition: border-color 0.2s ease, background 0.2s ease;
+    resize: vertical;
+  }
+
+  input::placeholder,
+  textarea::placeholder {
+    opacity: 0.3;
+  }
+
+  input:focus,
+  textarea:focus {
+    border-color: rgba(255, 255, 255, 0.28);
+    background: rgba(255, 255, 255, 0.06);
+  }
+
+  .contact-submit {
+    align-self: flex-start;
+    padding: 14px 28px;
+    border-radius: 999px;
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    background: rgba(255, 255, 255, 0.08);
+    color: inherit;
+    font-size: 13px;
+    font-family: inherit;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    cursor: pointer;
+    transition: background 0.2s ease, transform 0.18s ease;
+  }
+
+  .contact-submit:hover {
+    background: rgba(255, 255, 255, 0.14);
+    transform: translateY(-1px);
+  }
+
+  /* ── Mobile ── */
+  @media (max-width: 760px) {
+    .contact-wrap {
+      grid-template-columns: 1fr;
+    }
+
+    .contact-left {
+      border-right: none;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+      padding-bottom: 48px;
+      min-height: unset;
+      justify-content: flex-start;
+      padding-top: clamp(100px, 12vw, 140px);
+    }
+
+    .contact-right {
+      padding-top: 48px;
+    }
+  }
+</style>
