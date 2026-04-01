@@ -22,3 +22,7 @@ pnpm-debug.log*
 
 # jetbrains setting folder
 .idea/
+
+# external reference repos (not part of build)
+3DCarousel/
+src/assets/InfiniteTubes/

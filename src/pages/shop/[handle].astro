@@ -1,15 +1,16 @@
 ---
-export const prerender = false;
-
 import BaseLayout from "../../layouts/BaseLayout.astro";
-import { products } from "../../lib/mockProducts";
+import { products, type Product } from "../../lib/mockProducts";
 
-const { handle } = Astro.params;
-const product = products.find((p) => p.handle === handle);
-
-if (!product) {
-  throw new Error("Product not found");
+export function getStaticPaths() {
+  return products.map((product) => ({
+    params: { handle: product.handle },
+    props: { product },
+  }));
 }
+
+interface Props { product: Product; }
+const { product } = Astro.props;
 ---
 
 <BaseLayout title={product.title} theme="light">
