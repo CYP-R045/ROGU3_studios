@@ -1,0 +1,22 @@
+---
+interface Props {
+  title: string;
+  subtitle?: string;
+  background: string;
+  align?: "left" | "center";
+}
+
+const { title, subtitle, background, align = "left" } = Astro.props;
+---
+
+<section
+  class={`hero hero--${align}`}
+  style={`--hero-bg: url(${background})`}
+>
+  <div class="hero__overlay"></div>
+
+  <div class="hero__content">
+    <h1>{title}</h1>
+    {subtitle && <p>{subtitle}</p>}
+  </div>
+</section>

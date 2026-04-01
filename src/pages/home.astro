@@ -1,0 +1,126 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+
+const sections = [
+  {
+    kicker: "DROP 001",
+    title: "SKYLINE SHIRT",
+    desc: "Limited pieces. Vancouver-built. Clean silhouettes — loud intention.",
+    img: "/products/rogu3-skyline-shirt-front.png",
+    cta1: { label: "Shop now", href: "/drops" },
+    cta2: { label: "Details", href: "/drops" },
+  },
+  {
+    kicker: "DROP 001",
+    title: "BASKETBALL TOP",
+    desc: "Mesh, movement, and a cut that sits right. Built for late nights.",
+    img: "/products/front_bball_rogu3.png",
+    cta1: { label: "View drop", href: "/drops" },
+    cta2: { label: "Our story", href: "/story" },
+  },
+  {
+    kicker: "ROGU3",
+    title: "ENTER",
+    desc: "Follow the alerts. Catch the next release.",
+    img: "/products/rogu3-cap-brown.png",
+    cta1: { label: "View drops", href: "/drops" },
+    cta2: { label: "Drop alerts", href: "/contact" },
+  },
+];
+---
+
+<BaseLayout title="ROGU3">
+  <main class="noctaHome">
+    <section class="noctaHome__section">
+      <div class="noctaHome__media">
+        <img
+          class="noctaHome__img"
+          src="/brand/Placeholder_H1.jpg"
+          alt="ROGU3 lookbook"
+        />
+        <div class="noctaHome__mediaShade"></div>
+        <div class="noctaHome__grain"></div>
+      </div>
+
+      <div class="noctaHome__overlay">
+        <div class="noctaHome__kicker">Vancouver • X-ray streetwear</div>
+        <h1 class="noctaHome__title">ROGU3</h1>
+        <p class="noctaHome__desc">Clean silhouettes. Loud intention.</p>
+
+        <div class="noctaHome__cta">
+          <a class="noctaHome__btn noctaHome__btn--solid" href="/drops"
+            >View Drops</a
+          >
+          <a class="noctaHome__btn noctaHome__btn--ghost" href="/story"
+            >Our Story</a
+          >
+        </div>
+
+        <div class="noctaHome__hint">
+          <span class="noctaHome__dot"></span> Scroll
+        </div>
+      </div>
+    </section>
+    <section class="noctaHome__section">
+      <div class="noctaHome__media">
+        <img
+          class="noctaHome__img"
+          src="/brand/Placeholder_H2.jpeg"
+          alt="ROGU3 lookbook"
+        />
+        <div class="noctaHome__mediaShade"></div>
+        <div class="noctaHome__grain"></div>
+      </div>
+
+      <div class="noctaHome__hint">
+        <span class="noctaHome__dot"></span> Scroll
+      </div>
+    </section>
+  </main>
+  <section class="noctaHome__section">
+    <div class="noctaHome__media">
+      <img
+        class="noctaHome__img"
+        src="/brand/Placeholder_H3.jpeg"
+        alt="ROGU3 lookbook"
+      />
+      <div class="noctaHome__mediaShade"></div>
+      <div class="noctaHome__grain"></div>
+    </div>
+
+    <div class="noctaHome__hint">
+      <span class="noctaHome__dot"></span> Scroll
+    </div>
+  </section>
+  <section class="noctaHome__section">
+    <div class="noctaHome__media">
+      <img
+        class="noctaHome__img"
+        src="/brand/Placeholder_H4.jpeg"
+        alt="ROGU3 lookbook"
+      />
+      <div class="noctaHome__mediaShade"></div>
+      <div class="noctaHome__grain"></div>
+    </div>
+
+    <div class="noctaHome__hint">
+      <span class="noctaHome__dot"></span> Scroll
+    </div>
+  </section>
+
+  <section class="noctaHome__section">
+    <div class="noctaHome__media">
+      <img
+        class="noctaHome__img"
+        src="/brand/Placeholder_H5.jpeg"
+        alt="ROGU3 lookbook"
+      />
+      <div class="noctaHome__mediaShade"></div>
+      <div class="noctaHome__grain"></div>
+    </div>
+
+    <div class="noctaHome__hint">
+      <span class="noctaHome__dot"></span> Scroll
+    </div>
+  </section>
+</BaseLayout>

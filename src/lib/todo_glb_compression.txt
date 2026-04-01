@@ -1,0 +1,26 @@
+TODO: Compress Rogu3_char.glb (currently 80MB — unacceptable for mobile)
+
+PROBLEM:
+- public/products/Rogu3_char.glb = 80MB
+- public/brand/Rogu3_char.glb = 80MB
+- Loading takes 30+ seconds on mobile
+
+SOLUTION: Draco compression via gltf-pipeline
+
+STEPS:
+1. npm install -g gltf-pipeline
+2. gltf-pipeline -i public/products/Rogu3_char.glb -o public/products/Rogu3_char_draco.glb --draco.compressionLevel 10
+3. Update onboardingHallway.tsx to use DRACOLoader alongside GLTFLoader:
+
+   import { DRACOLoader } from "three/examples/jsm/loaders/DRACOLoader.js";
+
+   const dracoLoader = new DRACOLoader();
+   dracoLoader.setDecoderPath("https://www.gstatic.com/draco/versioned/decoders/1.5.6/");
+   const loader = new GLTFLoader();
+   loader.setDRACOLoader(dracoLoader);
+   loader.load("/products/Rogu3_char_draco.glb", ...);
+
+4. Update both /products/ and /brand/ copies
+
+ALTERNATIVE: Blender export with Draco compression + reduced texture sizes
+Target file size: under 5MB

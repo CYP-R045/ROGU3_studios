@@ -1,0 +1,22 @@
+TEMP: Camo background implementation for onboardingHallway.tsx
+Saved for later use — reverted to dark background for now.
+
+== CHANGES NEEDED ==
+
+1. WebGLRenderer — change alpha: false → alpha: true
+   (allows canvas to be transparent so CSS background shows through)
+
+2. Container div JSX — replace className with camo CSS background:
+   <div
+     ref={containerRef}
+     className="relative w-full h-screen overflow-hidden"
+     style={{ backgroundImage: "url('/brand/camo_bg.png')", backgroundSize: "cover", backgroundPosition: "center" }}
+   >
+
+3. Theme effect — remove bgHex (no longer needed, camo replaces solid bg):
+   // DELETE this line:
+   const bgHex = isDarkMode ? 0x050505 : 0xffffff;
+   // AND replace sceneRef.current.background = new THREE.Color(bgHex)
+   // with just a comment: "Background is the camo texture — don't overwrite with solid color"
+
+NOTE: Image file is already in place at public/brand/camo_bg.png

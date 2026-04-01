@@ -1,0 +1,46 @@
+---
+const { pathname } = Astro.url;
+
+const links = [
+  { href: "/drops", label: "Drops" },
+  { href: "/story", label: "Story" },
+  { href: "/contact", label: "Contact" },
+];
+
+const isActive = (href: string) =>
+  href === "/" ? pathname === "/" : pathname.startsWith(href);
+---
+
+<nav class="nav">
+  <a class="nav__logo" href="/" aria-label="ROGU3 Home">
+    <img src="/brand/rogu3_logo.png" alt="ROGU3" />
+  </a>
+
+  <div class="nav__links" id="main_menu">
+    {
+      links.map((l) => (
+        <a href={l.href} class={isActive(l.href) ? "active" : ""}>
+          {l.label}
+        </a>
+      ))
+    }
+  </div>
+</nav>
+
+<style>
+  /* keep/merge with your existing nav styles if you already have them */
+  .nav__links a {
+    opacity: 0.75;
+    text-decoration: none;
+  }
+  .nav__links a.active {
+    opacity: 1;
+    text-decoration: underline;
+  }
+
+  .nav__logo img {
+    height: 36px; /* adjust 30–42 depending on look */
+    width: auto;
+    display: block;
+  }
+</style>

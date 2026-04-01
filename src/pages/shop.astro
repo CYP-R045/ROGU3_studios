@@ -1,0 +1,1017 @@
+---
+import "../styles/global.css";
+import FloatingNav from "../components/FloatingNav";
+import TopLogo from "../components/TopLogo.astro";
+---
+
+<html lang="en" class="no-js">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Shop — ROGU3</title>
+    <script is:inline>
+      document.documentElement.className = "js";
+    </script>
+  </head>
+  <body class="loading">
+    <TopLogo />
+    <FloatingNav client:only="react" />
+
+    <main id="smooth-wrapper">
+      <div id="smooth-content">
+        <div class="scene-wrapper">
+          <!-- CAPS -->
+          <div class="scene" data-radius="650">
+            <h2 class="scene__title" data-speed="0.7">
+              <a href="#preview-caps"><span>hat</span></a>
+            </h2>
+            <div class="carousel">
+              <div class="carousel__cell">
+                <div class="card" style="--img: url(/products/Highlights/rogue1-22.jpg)">
+                  <div class="card__face card__face--front"></div>
+                  <div class="card__face card__face--back"></div>
+                </div>
+              </div>
+              <div class="carousel__cell">
+                <div class="card" style="--img: url(/products/Highlights/rogue1-27.jpg)">
+                  <div class="card__face card__face--front"></div>
+                  <div class="card__face card__face--back"></div>
+                </div>
+              </div>
+              <div class="carousel__cell">
+                <div class="card" style="--img: url(/products/Highlights/rogue1-38.jpg)">
+                  <div class="card__face card__face--front"></div>
+                  <div class="card__face card__face--back"></div>
+                </div>
+              </div>
+              <div class="carousel__cell">
+                <div class="card" style="--img: url(/products/Highlights/rogue1-33.jpg)">
+                  <div class="card__face card__face--front"></div>
+                  <div class="card__face card__face--back"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- JERSEYS -->
+          <div class="scene" data-radius="650">
+            <h2 class="scene__title" data-speed="0.7">
+              <a href="#preview-jerseys"><span>2-in-1 Jerseys</span></a>
+            </h2>
+            <div class="carousel">
+              <div class="carousel__cell">
+                <div class="card" style="--img: url(/products/Highlights/rogue1-65.jpg)">
+                  <div class="card__face card__face--front"></div>
+                  <div class="card__face card__face--back"></div>
+                </div>
+              </div>
+              <div class="carousel__cell">
+                <div class="card" style="--img: url(/products/Highlights/rogue1-62.jpg)">
+                  <div class="card__face card__face--front"></div>
+                  <div class="card__face card__face--back"></div>
+                </div>
+              </div>
+              <div class="carousel__cell">
+                <div class="card" style="--img: url(/products/Highlights/rogue1-70.jpg)">
+                  <div class="card__face card__face--front"></div>
+                  <div class="card__face card__face--back"></div>
+                </div>
+              </div>
+              <div class="carousel__cell">
+                <div class="card" style="--img: url(/products/Highlights/rogue1-73.jpg)">
+                  <div class="card__face card__face--front"></div>
+                  <div class="card__face card__face--back"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- SHIRTS -->
+          <div class="scene" data-radius="650">
+            <h2 class="scene__title" data-speed="0.7">
+              <a href="#preview-shirts"><span>Skyline Shirt</span></a>
+            </h2>
+            <div class="carousel">
+              <div class="carousel__cell">
+                <div class="card" style="--img: url(/products/Highlights/rogue1-51.jpg)">
+                  <div class="card__face card__face--front" style="background-position: top center;"></div>
+                  <div class="card__face card__face--back" style="background-position: top center;"></div>
+                </div>
+              </div>
+              <div class="carousel__cell">
+                <div class="card" style="--img: url(/products/Highlights/rogue1-44.jpg)">
+                  <div class="card__face card__face--front" style="background-position: top center;"></div>
+                  <div class="card__face card__face--back" style="background-position: top center;"></div>
+                </div>
+              </div>
+              <div class="carousel__cell">
+                <div class="card" style="--img: url(/products/Highlights/rogue1-54.jpg)">
+                  <div class="card__face card__face--front"></div>
+                  <div class="card__face card__face--back"></div>
+                </div>
+              </div>
+              <div class="carousel__cell">
+                <div class="card" style="--img: url(/products/Highlights/rogue1-57.jpg)">
+                  <div class="card__face card__face--front"></div>
+                  <div class="card__face card__face--back"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <!-- PREVIEW OVERLAYS — NOCTA grid -->
+    <div class="preview-wrapper">
+
+      <!-- CAPS preview -->
+      <div class="preview" id="preview-caps">
+        <header class="preview__header">
+          <h2 class="preview__title"><span>The Cap</span></h2>
+          <button class="preview__close">Close ×</button>
+        </header>
+        <div class="nocta-bar">
+          <div class="nocta-bar__left">
+            <button class="nocta-pill active">All</button>
+            <button class="nocta-pill nocta-subtle">Size</button>
+            <button class="nocta-pill nocta-subtle">In Stock</button>
+            <button class="nocta-pill nocta-subtle">Price</button>
+          </div>
+          <div class="nocta-bar__right">
+            <button class="nocta-view active" data-cols="3" aria-label="3-col">
+              <svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor"><rect x="0" y="0" width="4" height="16"/><rect x="6" y="0" width="4" height="16"/><rect x="12" y="0" width="4" height="16"/></svg>
+            </button>
+            <button class="nocta-view" data-cols="2" aria-label="2-col">
+              <svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor"><rect x="0" y="0" width="7" height="16"/><rect x="9" y="0" width="7" height="16"/></svg>
+            </button>
+          </div>
+        </div>
+        <div class="grid">
+          <div class="grid__item">
+            <div class="grid__item-img-wrap">
+              <div class="grid__item-image" style="background-image: url(/products/Highlights/rogue1-22.jpg)"></div>
+              <span class="grid__badge">NEW</span>
+              <div class="grid__sizes"><button class="sz-chip">S</button><button class="sz-chip">M</button><button class="sz-chip">L</button><button class="sz-chip">XL</button><button class="sz-chip">XXL</button></div>
+            </div>
+            <div class="grid__info"><span class="grid__name">ROGU3 Cap — Brown</span><span class="grid__price">$45 CAD</span></div>
+          </div>
+          <div class="grid__item">
+            <div class="grid__item-img-wrap">
+              <div class="grid__item-image" style="background-image: url(/products/Highlights/rogue1-21.jpg)"></div>
+              <div class="grid__sizes"><button class="sz-chip">S</button><button class="sz-chip">M</button><button class="sz-chip">L</button><button class="sz-chip">XL</button><button class="sz-chip">XXL</button></div>
+            </div>
+            <div class="grid__info"><span class="grid__name">ROGU3 Cap — Brown</span><span class="grid__price">$45 CAD</span></div>
+          </div>
+          <div class="grid__item">
+            <div class="grid__item-img-wrap">
+              <div class="grid__item-image" style="background-image: url(/products/Highlights/rogue1-27.jpg)"></div>
+              <div class="grid__sizes"><button class="sz-chip">S</button><button class="sz-chip">M</button><button class="sz-chip">L</button><button class="sz-chip">XL</button></div>
+            </div>
+            <div class="grid__info"><span class="grid__name">ROGU3 Cap — Brown</span><span class="grid__price">$45 CAD</span></div>
+          </div>
+          <div class="grid__item">
+            <div class="grid__item-img-wrap">
+              <div class="grid__item-image" style="background-image: url(/products/Highlights/rogue1-33.jpg)"></div>
+              <div class="grid__sizes"><button class="sz-chip">S</button><button class="sz-chip">M</button><button class="sz-chip">L</button><button class="sz-chip">XL</button></div>
+            </div>
+            <div class="grid__info"><span class="grid__name">ROGU3 Cap — Brown</span><span class="grid__price">$45 CAD</span></div>
+          </div>
+          <div class="grid__item">
+            <div class="grid__item-img-wrap">
+              <div class="grid__item-image" style="background-image: url(/products/rogu3-cap-brown.png)"></div>
+              <div class="grid__sizes"><button class="sz-chip">S</button><button class="sz-chip">M</button><button class="sz-chip">L</button></div>
+            </div>
+            <div class="grid__info"><span class="grid__name">ROGU3 Cap — Brown</span><span class="grid__price">$45 CAD</span></div>
+          </div>
+          <div class="grid__item">
+            <div class="grid__item-img-wrap">
+              <div class="grid__item-image" style="background-image: url(/products/Highlights/rogue1-38.jpg)"></div>
+              <span class="grid__badge">NEW</span>
+              <div class="grid__sizes"><button class="sz-chip">S</button><button class="sz-chip">M</button><button class="sz-chip">L</button><button class="sz-chip">XL</button></div>
+            </div>
+            <div class="grid__info"><span class="grid__name">ROGU3 Cap — Black</span><span class="grid__price">$45 CAD</span></div>
+          </div>
+          <div class="grid__item">
+            <div class="grid__item-img-wrap">
+              <div class="grid__item-image" style="background-image: url(/products/Highlights/rogue1-36.jpg)"></div>
+              <div class="grid__sizes"><button class="sz-chip">S</button><button class="sz-chip">M</button><button class="sz-chip">L</button><button class="sz-chip">XL</button></div>
+            </div>
+            <div class="grid__info"><span class="grid__name">ROGU3 Cap — Black</span><span class="grid__price">$45 CAD</span></div>
+          </div>
+          <div class="grid__item">
+            <div class="grid__item-img-wrap">
+              <div class="grid__item-image" style="background-image: url(/products/Highlights/rogue1-41.jpg)"></div>
+              <span class="grid__status">Sold out</span>
+              <div class="grid__sizes"><button class="sz-chip">M</button><button class="sz-chip">L</button></div>
+            </div>
+            <div class="grid__info"><span class="grid__name">ROGU3 Cap — Black</span><span class="grid__price">$45 CAD</span></div>
+          </div>
+          <div class="grid__item">
+            <div class="grid__item-img-wrap">
+              <div class="grid__item-image" style="background-image: url(/products/Highlights/rogue1-29.jpg)"></div>
+              <div class="grid__sizes"><button class="sz-chip">S</button><button class="sz-chip">M</button><button class="sz-chip">L</button></div>
+            </div>
+            <div class="grid__info"><span class="grid__name">ROGU3 Cap — Brown</span><span class="grid__price">$45 CAD</span></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- JERSEYS preview -->
+      <div class="preview" id="preview-jerseys">
+        <header class="preview__header">
+          <h2 class="preview__title"><span>Jerseys</span></h2>
+          <button class="preview__close">Close ×</button>
+        </header>
+        <div class="nocta-bar">
+          <div class="nocta-bar__left">
+            <button class="nocta-pill active">All</button>
+            <button class="nocta-pill nocta-subtle">Size</button>
+            <button class="nocta-pill nocta-subtle">In Stock</button>
+            <button class="nocta-pill nocta-subtle">Price</button>
+          </div>
+          <div class="nocta-bar__right">
+            <button class="nocta-view active" data-cols="3" aria-label="3-col">
+              <svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor"><rect x="0" y="0" width="4" height="16"/><rect x="6" y="0" width="4" height="16"/><rect x="12" y="0" width="4" height="16"/></svg>
+            </button>
+            <button class="nocta-view" data-cols="2" aria-label="2-col">
+              <svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor"><rect x="0" y="0" width="7" height="16"/><rect x="9" y="0" width="7" height="16"/></svg>
+            </button>
+          </div>
+        </div>
+        <div class="grid">
+          <div class="grid__item">
+            <div class="grid__item-img-wrap">
+              <div class="grid__item-image" style="background-image: url(/products/Highlights/rogue1-65.jpg)"></div>
+              <span class="grid__badge">NEW</span>
+              <div class="grid__sizes"><button class="sz-chip">XS</button><button class="sz-chip">S</button><button class="sz-chip">M</button><button class="sz-chip">L</button><button class="sz-chip">XL</button></div>
+            </div>
+            <div class="grid__info"><span class="grid__name">2-in-1 Jersey — Brown</span><span class="grid__price">$85 CAD</span></div>
+          </div>
+          <div class="grid__item">
+            <div class="grid__item-img-wrap">
+              <div class="grid__item-image" style="background-image: url(/products/Highlights/rogue1-62.jpg)"></div>
+              <div class="grid__sizes"><button class="sz-chip">XS</button><button class="sz-chip">S</button><button class="sz-chip">M</button><button class="sz-chip">L</button><button class="sz-chip">XL</button></div>
+            </div>
+            <div class="grid__info"><span class="grid__name">2-in-1 Jersey — Brown</span><span class="grid__price">$85 CAD</span></div>
+          </div>
+          <div class="grid__item">
+            <div class="grid__item-img-wrap">
+              <div class="grid__item-image" style="background-image: url(/products/Highlights/rogue1-61.jpg)"></div>
+              <span class="grid__badge">EXCLUSIVE</span>
+              <div class="grid__sizes"><button class="sz-chip">XS</button><button class="sz-chip">S</button><button class="sz-chip">M</button><button class="sz-chip">L</button></div>
+            </div>
+            <div class="grid__info"><span class="grid__name">Womens Mesh Top</span><span class="grid__price">$75 CAD</span></div>
+          </div>
+          <div class="grid__item">
+            <div class="grid__item-img-wrap">
+              <div class="grid__item-image" style="background-image: url(/products/Highlights/rogue1-19.jpg)"></div>
+              <div class="grid__sizes"><button class="sz-chip">S</button><button class="sz-chip">M</button><button class="sz-chip">L</button><button class="sz-chip">XL</button></div>
+            </div>
+            <div class="grid__info"><span class="grid__name">2-in-1 Jersey — Brown</span><span class="grid__price">$85 CAD</span></div>
+          </div>
+          <div class="grid__item">
+            <div class="grid__item-img-wrap">
+              <div class="grid__item-image" style="background-image: url(/products/front_bball_rogu3.png)"></div>
+              <div class="grid__sizes"><button class="sz-chip">XS</button><button class="sz-chip">S</button><button class="sz-chip">M</button><button class="sz-chip">L</button><button class="sz-chip">XL</button></div>
+            </div>
+            <div class="grid__info"><span class="grid__name">2-in-1 Jersey — Brown</span><span class="grid__price">$85 CAD</span></div>
+          </div>
+          <div class="grid__item">
+            <div class="grid__item-img-wrap">
+              <div class="grid__item-image" style="background-image: url(/products/Highlights/rogue1-70.jpg)"></div>
+              <span class="grid__status">Sold out</span>
+              <div class="grid__sizes"><button class="sz-chip">M</button><button class="sz-chip">L</button></div>
+            </div>
+            <div class="grid__info"><span class="grid__name">2-in-1 Jersey — Black</span><span class="grid__price">$85 CAD</span></div>
+          </div>
+          <div class="grid__item">
+            <div class="grid__item-img-wrap">
+              <div class="grid__item-image" style="background-image: url(/products/Highlights/rogue1-73.jpg)"></div>
+              <span class="grid__status">Sold out</span>
+              <div class="grid__sizes"><button class="sz-chip">M</button></div>
+            </div>
+            <div class="grid__info"><span class="grid__name">2-in-1 Jersey — Black</span><span class="grid__price">$85 CAD</span></div>
+          </div>
+          <div class="grid__item">
+            <div class="grid__item-img-wrap">
+              <div class="grid__item-image" style="background-image: url(/products/Womens_meshtop.png)"></div>
+              <span class="grid__badge">EXCLUSIVE</span>
+              <div class="grid__sizes"><button class="sz-chip">XS</button><button class="sz-chip">S</button><button class="sz-chip">M</button><button class="sz-chip">L</button></div>
+            </div>
+            <div class="grid__info"><span class="grid__name">Womens Mesh Top</span><span class="grid__price">$75 CAD</span></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- SHIRTS preview -->
+      <div class="preview" id="preview-shirts">
+        <header class="preview__header">
+          <h2 class="preview__title"><span>Silhouette Shirt</span></h2>
+          <button class="preview__close">Close ×</button>
+        </header>
+        <div class="nocta-bar">
+          <div class="nocta-bar__left">
+            <button class="nocta-pill active">All</button>
+            <button class="nocta-pill nocta-subtle">Size</button>
+            <button class="nocta-pill nocta-subtle">In Stock</button>
+            <button class="nocta-pill nocta-subtle">Price</button>
+          </div>
+          <div class="nocta-bar__right">
+            <button class="nocta-view active" data-cols="3" aria-label="3-col">
+              <svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor"><rect x="0" y="0" width="4" height="16"/><rect x="6" y="0" width="4" height="16"/><rect x="12" y="0" width="4" height="16"/></svg>
+            </button>
+            <button class="nocta-view" data-cols="2" aria-label="2-col">
+              <svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor"><rect x="0" y="0" width="7" height="16"/><rect x="9" y="0" width="7" height="16"/></svg>
+            </button>
+          </div>
+        </div>
+        <div class="grid">
+          <div class="grid__item">
+            <div class="grid__item-img-wrap">
+              <div class="grid__item-image" style="background-image: url(/products/Highlights/rogue1-44.jpg); background-position: top center;"></div>
+              <span class="grid__badge">NEW</span>
+              <div class="grid__sizes"><button class="sz-chip">S</button><button class="sz-chip">M</button><button class="sz-chip">L</button><button class="sz-chip">XL</button></div>
+            </div>
+            <div class="grid__info"><span class="grid__name">Skyline Shirt — Maroon</span><span class="grid__price">$110 CAD</span></div>
+          </div>
+          <div class="grid__item">
+            <div class="grid__item-img-wrap">
+              <div class="grid__item-image" style="background-image: url(/products/Highlights/rogue1-48.jpg); background-position: top center;"></div>
+              <div class="grid__sizes"><button class="sz-chip">S</button><button class="sz-chip">M</button><button class="sz-chip">L</button><button class="sz-chip">XL</button></div>
+            </div>
+            <div class="grid__info"><span class="grid__name">Skyline Shirt — Maroon</span><span class="grid__price">$110 CAD</span></div>
+          </div>
+          <div class="grid__item">
+            <div class="grid__item-img-wrap">
+              <div class="grid__item-image" style="background-image: url(/products/Highlights/rogue1-51.jpg); background-position: top center;"></div>
+              <div class="grid__sizes"><button class="sz-chip">S</button><button class="sz-chip">M</button><button class="sz-chip">L</button></div>
+            </div>
+            <div class="grid__info"><span class="grid__name">Skyline Shirt — Maroon</span><span class="grid__price">$110 CAD</span></div>
+          </div>
+          <div class="grid__item">
+            <div class="grid__item-img-wrap">
+              <div class="grid__item-image" style="background-image: url(/products/rogu3-skyline-shirt-front.png)"></div>
+              <div class="grid__sizes"><button class="sz-chip">S</button><button class="sz-chip">M</button><button class="sz-chip">L</button><button class="sz-chip">XL</button></div>
+            </div>
+            <div class="grid__info"><span class="grid__name">Skyline Shirt — Maroon</span><span class="grid__price">$110 CAD</span></div>
+          </div>
+          <div class="grid__item">
+            <div class="grid__item-img-wrap">
+              <div class="grid__item-image" style="background-image: url(/products/Highlights/rogue1-43.jpg)"></div>
+              <span class="grid__badge">NEW</span>
+              <div class="grid__sizes"><button class="sz-chip">S</button><button class="sz-chip">M</button><button class="sz-chip">L</button></div>
+            </div>
+            <div class="grid__info"><span class="grid__name">Skyline Shirt — Pink</span><span class="grid__price">$110 CAD</span></div>
+          </div>
+          <div class="grid__item">
+            <div class="grid__item-img-wrap">
+              <div class="grid__item-image" style="background-image: url(/products/Highlights/rogue1-54.jpg)"></div>
+              <div class="grid__sizes"><button class="sz-chip">S</button><button class="sz-chip">M</button><button class="sz-chip">L</button></div>
+            </div>
+            <div class="grid__info"><span class="grid__name">Skyline Shirt — Pink</span><span class="grid__price">$110 CAD</span></div>
+          </div>
+          <div class="grid__item">
+            <div class="grid__item-img-wrap">
+              <div class="grid__item-image" style="background-image: url(/products/Highlights/rogue1-57.jpg)"></div>
+              <div class="grid__sizes"><button class="sz-chip">S</button><button class="sz-chip">M</button><button class="sz-chip">L</button></div>
+            </div>
+            <div class="grid__info"><span class="grid__name">Skyline Shirt — Pink</span><span class="grid__price">$110 CAD</span></div>
+          </div>
+          <div class="grid__item">
+            <div class="grid__item-img-wrap">
+              <div class="grid__item-image" style="background-image: url(/products/Highlights/rogue1-58.jpg)"></div>
+              <div class="grid__sizes"><button class="sz-chip">S</button><button class="sz-chip">M</button></div>
+            </div>
+            <div class="grid__info"><span class="grid__name">Skyline Shirt — Pink</span><span class="grid__price">$110 CAD</span></div>
+          </div>
+          <div class="grid__item">
+            <div class="grid__item-img-wrap">
+              <div class="grid__item-image" style="background-image: url(/products/Highlights/rogue1-25.jpg)"></div>
+              <div class="grid__sizes"><button class="sz-chip">S</button><button class="sz-chip">M</button><button class="sz-chip">L</button></div>
+            </div>
+            <div class="grid__info"><span class="grid__name">Skyline Shirt — Maroon</span><span class="grid__price">$110 CAD</span></div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+    <!-- /preview-wrapper -->
+
+    <!-- GSAP + plugins -->
+    <script is:inline src="/js/carousel/gsap.min.js"></script>
+    <script is:inline src="/js/carousel/ScrollTrigger.min.js"></script>
+    <script is:inline src="/js/carousel/ScrollSmoother.min.js"></script>
+    <script is:inline src="/js/carousel/ScrollToPlugin.min.js"></script>
+    <script is:inline src="/js/carousel/SplitText.min.js"></script>
+    <script is:inline src="/js/carousel/imagesloaded.pkgd.min.js"></script>
+
+    <script is:inline>
+      gsap.registerPlugin(
+        ScrollTrigger,
+        ScrollSmoother,
+        ScrollToPlugin,
+        SplitText,
+      );
+
+      const smoother = ScrollSmoother.create({
+        wrapper: "#smooth-wrapper",
+        content: "#smooth-content",
+        smooth: 1,
+        effects: true,
+        normalizeScroll: true,
+      });
+
+      const sceneWrapper = document.querySelector(".scene-wrapper");
+      let isAnimating = false;
+      const splitMap = new Map();
+
+      const getCarouselCellTransforms = (count, radius) => {
+        const angleStep = 360 / count;
+        return Array.from({ length: count }, (_, i) => {
+          const angle = i * angleStep;
+          return `rotateY(${angle}deg) translateZ(${radius}px)`;
+        });
+      };
+
+      const setupCarouselCells = (carousel) => {
+        const wrapper = carousel.closest(".scene");
+        const radius = parseFloat(wrapper.dataset.radius) || 500;
+        const cells = carousel.querySelectorAll(".carousel__cell");
+        const transforms = getCarouselCellTransforms(cells.length, radius);
+        cells.forEach((cell, i) => {
+          cell.style.transform = transforms[i];
+        });
+      };
+
+      const createScrollAnimation = (carousel) => {
+        const wrapper = carousel.closest(".scene");
+        const cards = carousel.querySelectorAll(".card");
+        const titleSpan = wrapper.querySelector(".scene__title span");
+        const split = splitMap.get(titleSpan);
+        const chars = split?.chars || [];
+
+        carousel._timeline = gsap.timeline({
+          defaults: { ease: "sine.inOut" },
+          scrollTrigger: {
+            trigger: wrapper,
+            start: "top bottom",
+            end: "bottom top",
+            scrub: true,
+          },
+        });
+
+        carousel._timeline
+          .fromTo(carousel, { rotationY: 0 }, { rotationY: -180 }, 0)
+          .fromTo(carousel, { rotationZ: 3, rotationX: 3 }, { rotationZ: -3, rotationX: -3 }, 0)
+          .fromTo(cards, { filter: "brightness(250%)" }, { filter: "brightness(80%)", ease: "power3" }, 0)
+          .fromTo(cards, { rotationZ: 10 }, { rotationZ: -10, ease: "none" }, 0);
+
+        if (chars.length > 0) {
+          animateChars(chars, "in", {
+            scrollTrigger: {
+              trigger: wrapper,
+              start: "top center",
+              toggleActions: "play none none reverse",
+            },
+          });
+        }
+
+        return carousel._timeline;
+      };
+
+      const initTextsSplit = () => {
+        document
+          .querySelectorAll(".scene__title span, .preview__title span, .preview__close")
+          .forEach((span) => {
+            const split = SplitText.create(span, {
+              type: "chars",
+              charsClass: "char",
+              autoSplit: true,
+            });
+            splitMap.set(span, split);
+          });
+      };
+
+      const getInterpolatedRotation = (progress) => ({
+        rotationY: gsap.utils.interpolate(0, -180, progress),
+        rotationX: gsap.utils.interpolate(3, -3, progress),
+        rotationZ: gsap.utils.interpolate(3, -3, progress),
+      });
+
+      const animateGridItemIn = (el, dx, dy, rotationY, delay) => {
+        gsap.fromTo(
+          el,
+          { transformOrigin: `50% 50% ${dx > 0 ? -dx * 0.8 : dx * 0.8}px`, autoAlpha: 0, y: dy * 0.5, scale: 0.5, rotationY },
+          { y: 0, scale: 1, rotationY: 0, autoAlpha: 1, duration: 0.4, ease: "sine", delay: delay + 0.1 }
+        );
+        gsap.fromTo(el, { z: -3500 }, { z: 0, duration: 0.3, ease: "expo", delay });
+      };
+
+      const animateGridItemOut = (el, dx, dy, rotationY, delay, isLast, onComplete) => {
+        gsap.to(el, {
+          startAt: { transformOrigin: `50% 50% ${dx > 0 ? -dx * 0.8 : dx * 0.8}px` },
+          y: dy * 0.4, rotationY, scale: 0.4, autoAlpha: 0,
+          duration: 0.4, ease: "sine.in", delay,
+        });
+        gsap.to(el, {
+          z: -3500, duration: 0.4, ease: "expo.in",
+          delay: delay + 0.9,
+          onComplete: isLast ? onComplete : undefined,
+        });
+      };
+
+      const animateGridItems = ({ items, centerX, centerY, direction = "in", onComplete }) => {
+        const itemData = Array.from(items).map((el) => {
+          const rect = el.getBoundingClientRect();
+          const elCenterX = rect.left + rect.width / 2;
+          const elCenterY = rect.top + rect.height / 2;
+          const dx = centerX - elCenterX;
+          const dy = centerY - elCenterY;
+          const dist = Math.hypot(dx, dy);
+          const isLeft = elCenterX < centerX;
+          return { el, dx, dy, dist, isLeft };
+        });
+
+        const maxDist = Math.max(...itemData.map((d) => d.dist));
+        const totalStagger = 0.025 * (itemData.length - 1);
+        let latest = { delay: -1, el: null };
+
+        itemData.forEach(({ el, dx, dy, dist, isLeft }) => {
+          const norm = maxDist ? dist / maxDist : 0;
+          const exponential = Math.pow(direction === "in" ? 1 - norm : norm, 1);
+          const delay = exponential * totalStagger;
+          const rotationY = isLeft ? 100 : -100;
+
+          if (direction === "in") {
+            animateGridItemIn(el, dx, dy, rotationY, delay);
+          } else {
+            if (delay > latest.delay) latest = { delay, el };
+            animateGridItemOut(el, dx, dy, rotationY, delay, false, onComplete);
+          }
+        });
+
+        if (direction === "out" && latest.el) {
+          const found = itemData.find((d) => d.el === latest.el);
+          const rotationY = found.isLeft ? 100 : -100;
+          animateGridItemOut(found.el, found.dx, found.dy, rotationY, latest.delay, true, onComplete);
+        }
+      };
+
+      const animatePreviewGridIn = (preview) => {
+        const items = preview.querySelectorAll(".grid__item");
+        gsap.set(items, { clearProps: "all" });
+        animateGridItems({ items, centerX: window.innerWidth / 2, centerY: window.innerHeight / 2, direction: "in" });
+      };
+
+      const animatePreviewGridOut = (preview) => {
+        const items = preview.querySelectorAll(".grid__item");
+        const onComplete = () => gsap.set(preview, { pointerEvents: "none", autoAlpha: 0 });
+        animateGridItems({ items, centerX: window.innerWidth / 2, centerY: window.innerHeight / 2, direction: "out", onComplete });
+      };
+
+      const animateChars = (chars, direction = "in", opts = {}) => {
+        const base = {
+          autoAlpha: direction === "in" ? 1 : 0,
+          duration: 0.02, ease: "none",
+          stagger: { each: 0.04, from: direction === "in" ? "start" : "end" },
+          ...opts,
+        };
+        gsap.fromTo(chars, { autoAlpha: direction === "in" ? 0 : 1 }, base);
+      };
+
+      const animatePreviewTexts = (preview, direction = "in") => {
+        preview.querySelectorAll(".preview__title span, .preview__close").forEach((el) => {
+          const chars = splitMap.get(el)?.chars || [];
+          animateChars(chars, direction);
+        });
+      };
+
+      const getSceneElementsFromTitle = (titleEl) => {
+        const wrapper = titleEl.closest(".scene");
+        const carousel = wrapper?.querySelector(".carousel");
+        const cards = carousel?.querySelectorAll(".card");
+        const span = titleEl.querySelector("span");
+        const chars = splitMap.get(span)?.chars || [];
+        return { wrapper, carousel, cards, span, chars };
+      };
+
+      const getSceneElementsFromPreview = (previewEl) => {
+        const previewId = `#${previewEl.id}`;
+        const titleLink = document.querySelector(`.scene__title a[href="${previewId}"]`);
+        const titleEl = titleLink?.closest(".scene__title");
+        return { ...getSceneElementsFromTitle(titleEl), titleEl };
+      };
+
+      function preventScroll(e) { e.preventDefault(); }
+      function preventArrowScroll(e) {
+        if (["ArrowUp","ArrowDown","PageUp","PageDown","Home","End"," "].includes(e.key))
+          e.preventDefault();
+      }
+      function lockUserScroll() {
+        window.addEventListener("wheel", preventScroll, { passive: false });
+        window.addEventListener("touchmove", preventScroll, { passive: false });
+        window.addEventListener("keydown", preventArrowScroll, false);
+      }
+      function unlockUserScroll() {
+        window.removeEventListener("wheel", preventScroll);
+        window.removeEventListener("touchmove", preventScroll);
+        window.removeEventListener("keydown", preventArrowScroll);
+      }
+
+      const activatePreviewFromCarousel = (e) => {
+        e.preventDefault();
+        if (isAnimating) return;
+        isAnimating = true;
+
+        const titleEl = e.currentTarget;
+        const { wrapper, carousel, cards, chars } = getSceneElementsFromTitle(titleEl);
+        const offsetTop = wrapper.getBoundingClientRect().top + window.scrollY;
+        const targetY = offsetTop - window.innerHeight / 2 + wrapper.offsetHeight / 2;
+
+        ScrollTrigger.getAll().forEach((t) => t.disable(false));
+
+        gsap.timeline({
+          defaults: { duration: 1.5, ease: "power2.inOut" },
+          onComplete: () => {
+            isAnimating = false;
+            ScrollTrigger.getAll().forEach((t) => t.enable());
+            carousel._timeline.scrollTrigger.scroll(targetY);
+          },
+        })
+          .to(window, {
+            onStart: () => lockUserScroll(),
+            onComplete: () => { unlockUserScroll(); smoother.paused(true); },
+            scrollTo: { y: targetY, autoKill: true },
+          })
+          .to(chars, { autoAlpha: 0, duration: 0.02, ease: "none", stagger: { each: 0.04, from: "end" } }, 0)
+          .to(carousel, { rotationX: 90, rotationY: -360, z: -2000 }, 0)
+          .to(carousel, {
+            duration: 2.5, ease: "power3.inOut", z: 1500, rotationZ: 270,
+            onComplete: () => gsap.set(sceneWrapper, { autoAlpha: 0 }),
+          }, 0.7)
+          .to(cards, { rotationZ: 0 }, 0)
+          .add(() => {
+            const previewSelector = titleEl.querySelector("a")?.getAttribute("href");
+            const preview = document.querySelector(previewSelector);
+            gsap.set(preview, { pointerEvents: "auto", autoAlpha: 1 });
+            animatePreviewGridIn(preview);
+            animatePreviewTexts(preview, "in");
+          }, "<+=1.9");
+      };
+
+      const deactivatePreviewToCarousel = (e) => {
+        if (isAnimating) return;
+        isAnimating = true;
+
+        const preview = e.currentTarget.closest(".preview");
+        if (!preview) return;
+
+        const { carousel, cards, chars } = getSceneElementsFromPreview(preview);
+        animatePreviewTexts(preview, "out");
+        animatePreviewGridOut(preview);
+        gsap.set(sceneWrapper, { autoAlpha: 1 });
+
+        const { rotationX, rotationY, rotationZ } = getInterpolatedRotation(0.5);
+
+        gsap.timeline({
+          delay: 0.7,
+          defaults: { duration: 1.3, ease: "expo" },
+          onComplete: () => { smoother.paused(false); isAnimating = false; },
+        })
+          .fromTo(chars, { autoAlpha: 0 }, { autoAlpha: 1, duration: 0.02, ease: "none", stagger: { each: 0.04, from: "start" } })
+          .fromTo(carousel, { z: -550, rotationX, rotationY: -720, rotationZ, yPercent: 300 }, { rotationY, yPercent: 0 }, 0)
+          .fromTo(cards, { autoAlpha: 0 }, { autoAlpha: 1 }, 0.3);
+      };
+
+      // ── NOCTA grid density toggle ──────────────────────────────────────────
+      document.querySelectorAll(".nocta-bar").forEach((bar) => {
+        bar.querySelectorAll(".nocta-view").forEach((btn) => {
+          btn.addEventListener("click", () => {
+            bar.querySelectorAll(".nocta-view").forEach((b) => b.classList.remove("active"));
+            btn.classList.add("active");
+            const grid = bar.nextElementSibling; // the .grid div
+            grid.dataset.cols = btn.dataset.cols;
+          });
+        });
+      });
+
+      // ── Size chip toggle ───────────────────────────────────────────────────
+      document.querySelectorAll(".sz-chip").forEach((chip) => {
+        chip.addEventListener("click", (e) => {
+          e.preventDefault();
+          e.stopPropagation();
+          chip.classList.toggle("selected");
+        });
+      });
+
+      const initEventListeners = () => {
+        document.querySelectorAll(".scene__title").forEach((title) => {
+          title.addEventListener("click", activatePreviewFromCarousel);
+        });
+        document.querySelectorAll(".preview__close").forEach((btn) => {
+          btn.addEventListener("click", deactivatePreviewToCarousel);
+        });
+      };
+
+      const initCarousels = () => {
+        document.querySelectorAll(".carousel").forEach((carousel) => {
+          setupCarouselCells(carousel);
+          carousel._timeline = createScrollAnimation(carousel);
+        });
+      };
+
+      const preloadImages = (selector = "img") => {
+        return new Promise((resolve) => {
+          imagesLoaded(document.querySelectorAll(selector), { background: true }, resolve);
+        });
+      };
+
+      const init = () => {
+        initTextsSplit();
+        initCarousels();
+        initEventListeners();
+        window.addEventListener("resize", ScrollTrigger.refresh);
+      };
+
+      preloadImages(".grid__item-image").then(() => {
+        document.body.classList.remove("loading");
+        init();
+      });
+    </script>
+  </body>
+</html>
+
+<style>
+  *,
+  *::after,
+  *::before {
+    box-sizing: border-box;
+  }
+
+  :root {
+    font-size: 14px;
+    --color-text: #fff;
+    --color-bg: #050505;
+    --color-link: #ffffff;
+    --color-link-hover: rgba(255, 255, 255, 0.6);
+    --page-padding: 0.5rem;
+    --aspect: 4/5;
+    --grid-item-height: 20vh;
+    --c-gap: 1px;
+    --r-gap: 1px;
+    --column: 80px;
+    --column-count: 3;
+    --border-radius: 4px;
+  }
+
+  html {
+    height: 100%;
+    overflow-x: hidden;
+  }
+
+  body {
+    height: 100%;
+    width: 100%;
+    font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, sans-serif;
+    text-transform: uppercase;
+    margin: 0;
+    color: var(--color-text);
+    background-color: var(--color-bg);
+    background-image: url(/brand/tunnel_bg.png);
+    background-repeat: repeat;
+    background-size: auto;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    animation: reveal 0.5s ease forwards;
+  }
+
+  @keyframes reveal {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+  }
+
+  @media (scripting: enabled) {
+    .loading::before,
+    .loading::after {
+      content: "";
+      position: fixed;
+      z-index: 10000;
+    }
+    .loading::before {
+      top: 0; left: 0; width: 100%; height: 100%;
+      background: var(--color-bg);
+    }
+    .loading::after {
+      top: 50%; left: 50%; width: 100px; height: 1px; margin: 0 0 0 -50px;
+      background: var(--color-link);
+      animation: loaderAnim 1.5s ease-in-out infinite alternate forwards;
+    }
+  }
+
+  @keyframes loaderAnim {
+    0%    { transform: scaleX(0); transform-origin: 0% 50%; }
+    50%   { transform: scaleX(1); transform-origin: 0% 50%; }
+    50.1% { transform: scaleX(1); transform-origin: 100% 50%; }
+    100%  { transform: scaleX(0); transform-origin: 100% 50%; }
+  }
+
+  a { text-decoration: none; color: var(--color-link); outline: none; cursor: pointer; transition: all 0.3s ease; }
+  a:hover { color: var(--color-link-hover); }
+
+  #smooth-wrapper { overflow: hidden; height: 100vh; }
+  .scene-wrapper { position: relative; }
+
+  .scene {
+    perspective: 900px; position: relative;
+    height: 100vh; display: flex; justify-content: center; align-items: center;
+  }
+
+  .scene__title {
+    position: relative; z-index: 10; margin: 0;
+    font-size: clamp(0.75rem, 1.8vw, 1.4rem); font-weight: 500; letter-spacing: 0.15em;
+  }
+  .scene__title a { display: block; }
+  .scene__title span { display: inline-block; }
+  .scene__title .char { display: inline-block; transform-style: preserve-3d; transform-origin: 50% 0%; }
+
+  .carousel {
+    width: 560px; height: 680px;
+    top: 50%; left: 50%; margin: -340px 0 0 -280px;
+    position: absolute; transform-style: preserve-3d; will-change: transform;
+    transform: translateZ(-700px) rotateY(0deg);
+  }
+  .scene:nth-child(even) .carousel { transform: translateZ(-700px) rotateY(45deg); }
+
+  .carousel__cell {
+    position: absolute; width: 500px; height: 620px;
+    left: 0; top: 0; transform-style: preserve-3d;
+  }
+
+  .card { width: 100%; height: 100%; position: relative; transform-style: preserve-3d; }
+
+  .card__face {
+    width: 100%; height: 100%; position: absolute;
+    backface-visibility: hidden;
+    background-image: var(--img); background-size: cover; background-position: center;
+    border-radius: var(--border-radius);
+  }
+  .card__face--back { transform: rotateY(180deg); }
+
+  /* ── Preview overlay ────────────────────────────────────────────────────── */
+  .preview-wrapper { position: relative; z-index: 100; }
+
+  .preview {
+    position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+    display: flex; flex-direction: column;
+    opacity: 0; pointer-events: none;
+    background: var(--color-bg);
+    overflow-y: auto;
+  }
+
+  .preview__header {
+    display: flex; align-items: flex-end; justify-content: space-between;
+    padding: 2rem 2rem 0; line-height: 1; flex-shrink: 0;
+  }
+  .preview__title { margin: 0; font-size: clamp(1.5rem, 5vw, 3rem); font-weight: 900; }
+  .preview__title span { display: inline-block; }
+  .preview__close {
+    background: none; text-transform: uppercase; border: 0;
+    padding: 0; margin: 0; font: inherit; cursor: pointer;
+    color: var(--color-text); font-size: 1rem;
+  }
+  .preview__close:hover { color: var(--color-link-hover); }
+
+  /* ── NOCTA filter bar ───────────────────────────────────────────────────── */
+  .nocta-bar {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 2rem; height: 44px; flex-shrink: 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    margin-top: 1.25rem;
+  }
+
+  .nocta-bar__left,
+  .nocta-bar__right { display: flex; align-items: center; }
+
+  .nocta-pill {
+    background: none; border: none;
+    color: rgba(255, 255, 255, 0.4);
+    font-family: inherit; font-size: 0.65rem; font-weight: 500;
+    letter-spacing: 0.1em; text-transform: uppercase;
+    cursor: pointer; padding: 0 1rem; height: 44px;
+    position: relative; transition: color 0.2s;
+  }
+  .nocta-pill::after {
+    content: ""; position: absolute; bottom: 0; left: 1rem; right: 1rem;
+    height: 1px; background: #fff; transform: scaleX(0); transition: transform 0.2s;
+  }
+  .nocta-pill.active { color: #fff; font-weight: 700; }
+  .nocta-pill.active::after { transform: scaleX(1); }
+  .nocta-pill:hover { color: #fff; }
+  .nocta-subtle { border-left: 1px solid rgba(255, 255, 255, 0.1); margin-left: 0.5rem; }
+
+  .nocta-view {
+    background: none; border: none;
+    color: rgba(255, 255, 255, 0.35);
+    cursor: pointer; padding: 0.4rem 0.5rem;
+    display: flex; align-items: center; transition: color 0.2s;
+  }
+  .nocta-view.active,
+  .nocta-view:hover { color: #fff; }
+
+  /* ── Product grid ───────────────────────────────────────────────────────── */
+  .grid {
+    display: grid;
+    gap: 1px;
+    background: rgba(255, 255, 255, 0.07);
+    grid-template-columns: repeat(3, 1fr);
+    width: 100%;
+  }
+
+  .grid[data-cols="2"] { grid-template-columns: repeat(2, 1fr); }
+
+  @media (max-width: 640px) {
+    .grid { grid-template-columns: repeat(2, 1fr); }
+  }
+
+  /* ── Product card ───────────────────────────────────────────────────────── */
+  .grid__item {
+    background: var(--color-bg);
+    display: flex; flex-direction: column;
+    will-change: transform; transform-style: preserve-3d;
+  }
+
+  /* Padding-top trick: reliable aspect ratio across all browsers/contexts */
+  .grid__item-img-wrap {
+    position: relative;
+    width: 100%;
+    padding-top: 133.33%; /* 3:4 portrait */
+    overflow: hidden;
+    background: #1a1a1a;
+    flex-shrink: 0;
+  }
+
+  .grid__item-image {
+    position: absolute;
+    inset: 0;
+    background-size: cover;
+    background-position: center;
+    transition: transform 0.55s ease;
+  }
+  .grid__item:hover .grid__item-image { transform: scale(1.03); }
+
+  /* Sold out badge */
+  .grid__status {
+    position: absolute; top: 0.8rem; left: 50%; transform: translateX(-50%);
+    font-size: 0.58rem; font-weight: 600; letter-spacing: 0.12em;
+    color: rgba(255, 255, 255, 0.75);
+    background: rgba(0, 0, 0, 0.45);
+    padding: 0.2rem 0.6rem;
+    backdrop-filter: blur(4px); -webkit-backdrop-filter: blur(4px);
+    pointer-events: none; z-index: 2;
+  }
+
+  /* NEW / EXCLUSIVE badge */
+  .grid__badge {
+    position: absolute; bottom: 3.25rem; left: 50%; transform: translateX(-50%);
+    font-size: 0.52rem; font-weight: 600; letter-spacing: 0.18em;
+    color: rgba(255, 255, 255, 0.65);
+    pointer-events: none; z-index: 2;
+  }
+
+  /* Size chips — always visible, like NOCTA */
+  .grid__sizes {
+    position: absolute; bottom: 0.7rem; left: 0.7rem;
+    display: flex; gap: 0.28rem; flex-wrap: wrap;
+    z-index: 2;
+  }
+
+  .sz-chip {
+    background: rgba(15, 14, 14, 0.82);
+    border: 1px solid rgba(255, 255, 255, 0.45);
+    color: #fff; font-family: inherit;
+    font-size: 0.5rem; font-weight: 600; letter-spacing: 0.06em;
+    text-transform: uppercase; cursor: pointer;
+    padding: 0.26rem 0.4rem; min-width: 1.8rem; text-align: center;
+    transition: background 0.15s, border-color 0.15s;
+    backdrop-filter: blur(4px); -webkit-backdrop-filter: blur(4px);
+  }
+  .sz-chip:hover,
+  .sz-chip.selected { background: #fff; color: #0f0e0e; border-color: #fff; }
+
+  /* Info strip */
+  .grid__info {
+    display: flex; justify-content: space-between; align-items: baseline;
+    padding: 0.6rem 0.75rem; flex-shrink: 0;
+    border-top: 1px solid rgba(255, 255, 255, 0.07);
+  }
+  .grid__name {
+    font-size: 0.65rem; font-weight: 400; letter-spacing: 0.04em;
+    color: rgba(255, 255, 255, 0.82);
+    white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+  }
+  .grid__price {
+    font-size: 0.65rem; font-weight: 400;
+    color: rgba(255, 255, 255, 0.5); letter-spacing: 0.04em; flex-shrink: 0;
+  }
+</style>

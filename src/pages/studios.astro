@@ -1,0 +1,19 @@
+---
+import "../styles/global.css";
+import StudiosEntry from "../components/StudiosEntry";
+import FloatingNav from "../components/FloatingNav";
+import TopLogo from "../components/TopLogo.astro";
+---
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Studios — ROGU3</title>
+  </head>
+  <body style="margin:0;padding:0;overflow:hidden;background:#050505;">
+    <TopLogo />
+    <FloatingNav client:only="react" />
+    <StudiosEntry client:only="react" />
+  </body>
+</html>

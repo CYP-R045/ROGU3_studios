@@ -1,0 +1,23 @@
+---
+import "../styles/global.css";
+import HallwayHero from "../components/onboardingHallway";
+---
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>ROGU3</title>
+  </head>
+  <body style="margin:0;padding:0;overflow:hidden;background:#050505;">
+    <script>
+      // If not arriving from the loading screen, send back to get it
+      if (!sessionStorage.getItem("rogu3_loaded")) {
+        window.location.replace("/");
+      } else {
+        sessionStorage.removeItem("rogu3_loaded");
+      }
+    </script>
+    <HallwayHero client:only="react" isDarkMode={true} />
+  </body>
+</html>

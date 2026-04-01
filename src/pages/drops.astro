@@ -1,0 +1,438 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import { products } from "../lib/mockProducts";
+
+// Use duplicates so the grid looks full for now
+const items = [...products, ...products, ...products];
+---
+
+<BaseLayout title="Shop" theme="dark">
+  <main class="shopx">
+    <header class="shopx__head">
+      <div class="shopx__kicker">ROGU3</div>
+      <h1 class="shopx__title">Shop All</h1>
+      <p class="shopx__sub">
+        Limited pieces. Clean fit. Built for Vancouver nights.
+      </p>
+    </header>
+
+    <section class="shopx__layout">
+      <aside class="shopx__filters" aria-label="Filters">
+        <div class="shopx__filtersInner">
+          <div class="shopx__filtersTitle">Refine</div>
+
+          <details open>
+            <summary>Availability</summary>
+            <div class="shopx__chips">
+              <button type="button" class="chip isActive">In stock</button>
+              <button type="button" class="chip">Sold out</button>
+            </div>
+          </details>
+
+          <details open>
+            <summary>Category</summary>
+            <div class="shopx__chips">
+              <button type="button" class="chip isActive">All</button>
+              <button type="button" class="chip">Tops</button>
+              <button type="button" class="chip">Headwear</button>
+            </div>
+          </details>
+
+          <details>
+            <summary>Size</summary>
+            <div class="shopx__chips">
+              {
+                ["XS", "S", "M", "L", "XL", "XXL"].map((s) => (
+                  <button type="button" class="chip">
+                    {s}
+                  </button>
+                ))
+              }
+            </div>
+          </details>
+
+          <details>
+            <summary>Color</summary>
+            <div class="shopx__chips">
+              {
+                ["Black", "Brown", "Cream", "Grey"].map((c) => (
+                  <button type="button" class="chip">
+                    {c}
+                  </button>
+                ))
+              }
+            </div>
+          </details>
+
+          <div class="shopx__note">
+            Filters are UI-only for now (Shopify hookup later).
+          </div>
+        </div>
+      </aside>
+
+      <div class="shopx__content">
+        <div class="shopx__bar" role="region" aria-label="Sort and results">
+          <div class="shopx__count">{items.length} items</div>
+          <div class="shopx__sort">
+            <label for="sort" class="srOnly">Sort</label>
+            <select id="sort" name="sort" class="shopx__select">
+              <option>Featured</option>
+              <option>New</option>
+              <option>Price: Low → High</option>
+              <option>Price: High → Low</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="shopx__grid">
+          {
+            items.map((p) => {
+              const front = p.images?.[0];
+              const back = p.images?.[1];
+              return (
+                <a
+                  class="cardx"
+                  href={`/shop/${p.handle}`}
+                  aria-label={`View ${p.title}`}
+                >
+                  <div class="cardx__media">
+                    {front && (
+                      <img
+                        class="cardx__img isFront"
+                        src={front}
+                        alt={p.title}
+                        loading="lazy"
+                      />
+                    )}
+                    {back && (
+                      <img
+                        class="cardx__img isBack"
+                        src={back}
+                        alt={p.title}
+                        loading="lazy"
+                      />
+                    )}
+                  </div>
+                  <div class="cardx__meta">
+                    <div class="cardx__title">{p.title}</div>
+                    <div class="cardx__price">{p.price}</div>
+                  </div>
+                </a>
+              );
+            })
+          }
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <style>
+    /* ---------- Page shell ---------- */
+    .shopx {
+      min-height: 100vh;
+      padding: 34px 22px 64px;
+      background:
+        radial-gradient(
+          1200px 700px at 70% -10%,
+          rgba(255, 255, 255, 0.06),
+          transparent 60%
+        ),
+        #0b0b0d;
+      color: rgba(255, 255, 255, 0.92);
+    }
+
+    .shopx__head {
+      max-width: 980px;
+      margin: 0 auto 22px;
+      padding: 0 4px;
+    }
+
+    .shopx__kicker {
+      font-size: 12px;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      opacity: 0.75;
+      margin-bottom: 10px;
+    }
+
+    .shopx__title {
+      margin: 0;
+      font-size: clamp(40px, 5vw, 72px);
+      line-height: 1.02;
+      letter-spacing: -0.03em;
+    }
+
+    .shopx__sub {
+      margin: 10px 0 0;
+      max-width: 56ch;
+      opacity: 0.78;
+      font-weight: 500;
+    }
+
+    /* ---------- Layout ---------- */
+    .shopx__layout {
+      max-width: 1160px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 260px 1fr;
+      gap: 20px;
+      align-items: start;
+    }
+
+    .shopx__filtersInner {
+      position: sticky;
+      top: 88px;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 18px;
+      padding: 14px;
+      background: rgba(255, 255, 255, 0.04);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+    }
+
+    .shopx__filtersTitle {
+      font-weight: 800;
+      letter-spacing: -0.01em;
+      margin: 2px 0 10px;
+    }
+
+    details {
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      padding-top: 10px;
+      margin-top: 10px;
+    }
+
+    details:first-of-type {
+      border-top: none;
+      padding-top: 0;
+      margin-top: 0;
+    }
+
+    summary {
+      cursor: pointer;
+      list-style: none;
+      font-weight: 700;
+      opacity: 0.9;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      user-select: none;
+    }
+
+    summary::-webkit-details-marker {
+      display: none;
+    }
+
+    summary::after {
+      content: "+";
+      opacity: 0.7;
+    }
+
+    details[open] summary::after {
+      content: "–";
+    }
+
+    .shopx__chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 10px;
+    }
+
+    .chip {
+      border: 1px solid rgba(255, 255, 255, 0.14);
+      background: rgba(0, 0, 0, 0.2);
+      color: rgba(255, 255, 255, 0.88);
+      padding: 8px 10px;
+      border-radius: 999px;
+      font-weight: 700;
+      font-size: 12px;
+      letter-spacing: 0.02em;
+      cursor: pointer;
+      transition:
+        transform 0.12s ease,
+        background 0.12s ease,
+        border-color 0.12s ease;
+    }
+
+    .chip:hover {
+      transform: translateY(-1px);
+      background: rgba(255, 255, 255, 0.08);
+      border-color: rgba(255, 255, 255, 0.22);
+    }
+
+    .chip.isActive {
+      background: rgba(255, 255, 255, 0.12);
+      border-color: rgba(255, 255, 255, 0.28);
+    }
+
+    .shopx__note {
+      margin-top: 12px;
+      font-size: 12px;
+      opacity: 0.65;
+      line-height: 1.35;
+    }
+
+    /* ---------- Top bar ---------- */
+    .shopx__bar {
+      position: sticky;
+      top: 12px;
+      z-index: 10;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+
+      padding: 10px 12px;
+      border-radius: 16px;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      background: rgba(11, 11, 13, 0.65);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      margin-bottom: 14px;
+    }
+
+    .shopx__count {
+      font-weight: 700;
+      opacity: 0.86;
+      font-size: 13px;
+      letter-spacing: 0.01em;
+    }
+
+    .shopx__select {
+      border: 1px solid rgba(255, 255, 255, 0.14);
+      background: rgba(255, 255, 255, 0.04);
+      color: rgba(255, 255, 255, 0.92);
+      padding: 8px 10px;
+      border-radius: 12px;
+      font-weight: 700;
+      font-size: 13px;
+      outline: none;
+    }
+
+    /* ---------- Grid & card ---------- */
+    .shopx__grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 14px;
+    }
+
+    .cardx {
+      text-decoration: none;
+      color: inherit;
+
+      /* NOCTA: no visible card boundaries */
+      border: none;
+      border-radius: 0;
+      background: transparent;
+
+      /* keep hover motion only */
+      transition: transform 0.16s ease;
+    }
+
+    .cardx:hover {
+      transform: translateY(-3px);
+    }
+
+    .cardx:hover {
+      transform: translateY(-3px);
+      border-color: rgba(255, 255, 255, 0.22);
+      background: rgba(255, 255, 255, 0.05);
+    }
+
+    .cardx__media {
+      position: relative;
+      aspect-ratio: 1 / 1;
+      display: grid;
+      place-items: center;
+      background: transparent;
+        400px 300px at 50% 40%,
+        rgba(255, 255, 255, 0.08),
+        transparent 60%
+      );
+      padding: 14px;
+    }
+
+    .cardx__img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      filter: drop-shadow(0 14px 18px rgba(0, 0, 0, 0.45));
+      transition: opacity 0.18s ease;
+    }
+
+    .cardx__img.isBack {
+      position: absolute;
+      inset: 14px;
+      opacity: 0;
+    }
+
+    .cardx:hover .cardx__img.isBack {
+      opacity: 1;
+    }
+
+    .cardx:hover .cardx__img.isFront {
+      opacity: 0;
+    }
+
+    .cardx__meta {
+      padding: 12px 12px 14px;
+    }
+
+    .cardx__title {
+      font-weight: 800;
+      letter-spacing: -0.01em;
+      font-size: 13px;
+      line-height: 1.25;
+    }
+
+    .cardx__price {
+      margin-top: 6px;
+      opacity: 0.78;
+      font-weight: 700;
+      font-size: 13px;
+    }
+
+    /* ---------- Utility ---------- */
+    .srOnly {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+      border: 0;
+    }
+
+    /* ---------- Responsive ---------- */
+    @media (max-width: 1080px) {
+      .shopx__layout {
+        grid-template-columns: 1fr;
+      }
+      .shopx__filtersInner {
+        position: relative;
+        top: auto;
+      }
+      .shopx__grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+      .shopx__bar {
+        top: 64px;
+      }
+    }
+
+    @media (max-width: 560px) {
+      .shopx {
+        padding: 28px 14px 52px;
+      }
+      .shopx__grid {
+        grid-template-columns: 1fr;
+      }
+      .shopx__bar {
+        top: 58px;
+      }
+    }
+  </style>
+</BaseLayout>
