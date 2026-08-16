@@ -1,6 +1,7 @@
 import React, { useRef, useEffect } from "react";
 import * as THREE from "three";
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader.js";
+import { MeshoptDecoder } from "three/examples/jsm/libs/meshopt_decoder.module.js";
 import gsap from "gsap";
 
 const BUBBLE = 240;
@@ -94,8 +95,9 @@ const LoadingScreen: React.FC<LoadingScreenProps> = ({ onComplete }) => {
 
     // ── Load GLB — ring tracks real download progress ──────────────────────
     const loader = new GLTFLoader();
+    loader.setMeshoptDecoder(MeshoptDecoder);
     loader.load(
-      "/brand/Rogu3 eye logo .glb",
+      "/brand/Rogu3 eye logo.compressed.glb",
       (gltf) => {
         // File fully loaded — mount model
         const model = gltf.scene;

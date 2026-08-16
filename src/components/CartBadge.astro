@@ -1,0 +1,64 @@
+<a href="/cart" class="cartBadge" aria-label="View cart">
+  <span class="cartIcon">🛒</span>
+  <span id="cartCount" class="cartCount" hidden>0</span>
+</a>
+
+<script>
+  import { getStoredCartId } from "../lib/cartClient";
+  import { getCart } from "../lib/shopify";
+
+  const countEl = document.querySelector<HTMLSpanElement>("#cartCount");
+
+  function setCount(n: number) {
+    if (!countEl) return;
+    countEl.textContent = String(n);
+    countEl.hidden = n === 0;
+  }
+
+  window.addEventListener("cart:updated", (e: Event) => {
+    const cart = (e as CustomEvent).detail;
+    setCount(cart?.totalQuantity ?? 0);
+  });
+
+  const cartId = getStoredCartId();
+  if (cartId) {
+    getCart(cartId).then((cart) => setCount(cart?.totalQuantity ?? 0));
+  }
+</script>
+
+<style>
+  .cartBadge {
+    position: fixed;
+    top: 1.25rem;
+    right: 1.5rem;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 46px;
+    height: 46px;
+    border-radius: 50%;
+    background: color-mix(in srgb, var(--text) 8%, transparent);
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+    border: 1px solid color-mix(in srgb, var(--text) 18%, transparent);
+    text-decoration: none;
+    font-size: 1.1rem;
+  }
+  .cartCount {
+    position: absolute;
+    top: -4px;
+    right: -4px;
+    min-width: 18px;
+    height: 18px;
+    padding: 0 4px;
+    border-radius: 999px;
+    background: var(--text);
+    color: var(--bg);
+    font-size: 11px;
+    font-weight: 800;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+</style>

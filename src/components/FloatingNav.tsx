@@ -33,6 +33,7 @@ const FloatingNav: React.FC<FloatingNavProps> = ({ onShopNavigate, onStudiosNavi
 
   return (
     <div
+      className="floating-nav-wrap"
       style={{
         position: "fixed",
         left: "1.5rem",
@@ -47,6 +48,7 @@ const FloatingNav: React.FC<FloatingNavProps> = ({ onShopNavigate, onStudiosNavi
     >
       {/* Trigger pill — vertical capsule */}
       <button
+        className="floating-nav-trigger"
         onClick={() => setOpen(o => !o)}
         style={{
           width: "58px",
@@ -84,6 +86,7 @@ const FloatingNav: React.FC<FloatingNavProps> = ({ onShopNavigate, onStudiosNavi
           pointerEvents: "none",
         }} />
         <img
+          className="floating-nav-icon"
           src="/brand/nav_trigger.png"
           alt="menu"
           style={{

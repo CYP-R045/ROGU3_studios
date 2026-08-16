@@ -2,6 +2,7 @@ import React, { useRef, useLayoutEffect, useEffect } from "react";
 import gsap from "gsap";
 import * as THREE from "three";
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader.js";
+import { MeshoptDecoder } from "three/examples/jsm/libs/meshopt_decoder.module.js";
 import FloatingNav from "./FloatingNav";
 
 interface HeroProps {
@@ -52,19 +53,17 @@ const Hero: React.FC<HeroProps> = ({ isDarkMode }) => {
   const ROW_HEIGHT = TUNNEL_HEIGHT / WALL_ROWS;
 
   const imageUrls = [
-    "/brand/Placeholder_H1.webp",
-    "/brand/Placeholder_H2.webp",
-    "/brand/Placeholder_H3.webp",
-    "/brand/Placeholder_H4.webp",
-    "/brand/Placeholder_H5.webp",
-    "/brand/Placeholder_H6.webp",
-    "/brand/Placeholder_H7.webp",
-    "/brand/Placeholder_H9.webp",
-    "/brand/PlaceholderH10.webp",
-    "/brand/Placeholder_H11.webp",
-    "/brand/Placeholder_rogu3demon.webp",
-    "/brand/P_rogu3.webp",
-    "/brand/Pink_ai.webp",
+    "/RH_pix/E2171D0D-2CA6-4710-9863-F4CFA6E22203.webp",
+    "/RH_pix/IMG_4862.webp",
+    "/RH_pix/IMG_4873_2.webp",
+    "/RH_pix/IMG_4882.webp",
+    "/RH_pix/IMG_4965.webp",
+    "/RH_pix/IMG_5063.webp",
+    "/RH_pix/IMG_5076.webp",
+    "/RH_pix/IMG_5207.webp",
+    "/RH_pix/IMG_5961.webp",
+    "/RH_pix/IMG_5964.webp",
+    "/RH_pix/checker-black-piece.webp",
   ];
 
   // Helper: Create a segment with grid lines and filled cells
@@ -358,8 +357,9 @@ const Hero: React.FC<HeroProps> = ({ isDarkMode }) => {
     scene.fog = new THREE.FogExp2(0x050505, FOG_DENSITY);
 
     const loader = new GLTFLoader();
+    loader.setMeshoptDecoder(MeshoptDecoder);
 
-    loader.load("/products/Rogu3_char.glb", (gltf) => {
+    loader.load("/products/Rogu3_char.compressed.glb", (gltf) => {
       const rogue = gltf.scene;
       rogue.position.set(0, 1, -30);
       rogue.scale.set(1.5, 1.5, 1.5);
@@ -370,7 +370,8 @@ const Hero: React.FC<HeroProps> = ({ isDarkMode }) => {
 
     // 3D text logo at the end of the hallway — auto-rotating in place
     const logoLoader = new GLTFLoader();
-    logoLoader.load("/brand/Rogu3 text logo .glb", (gltf) => {
+    logoLoader.setMeshoptDecoder(MeshoptDecoder);
+    logoLoader.load("/brand/Rogu3 text logo.compressed.glb", (gltf) => {
       const logo = gltf.scene;
 
       // Center the geometry so it spins around its own center, not the world origin
@@ -717,6 +718,7 @@ const Hero: React.FC<HeroProps> = ({ isDarkMode }) => {
       <a
         href="/onboarding"
         aria-label="ROGU3 Home"
+        className="top-logo-link"
         style={{
           position: "fixed",
           top: 0,
@@ -728,6 +730,7 @@ const Hero: React.FC<HeroProps> = ({ isDarkMode }) => {
         <img
           src="/brand/RS_wordlogo.PNG"
           alt="ROGU3"
+          className="top-logo-img"
           style={{
             display: "block",
             marginTop: "-2rem",

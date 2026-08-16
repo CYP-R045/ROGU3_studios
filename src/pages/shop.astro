@@ -2,6 +2,64 @@
 import "../styles/global.css";
 import FloatingNav from "../components/FloatingNav";
 import TopLogo from "../components/TopLogo.astro";
+import CartBadge from "../components/CartBadge.astro";
+import { getProducts, type ShopifyProduct } from "../lib/shopify";
+
+const allProducts = await getProducts(50);
+
+const categoryDefs = [
+  {
+    previewId: "preview-caps",
+    title: "hat",
+    previewTitle: "The Cap",
+    type: "Hat",
+    carouselImages: [
+      "/products/Highlights/rogue1-22.jpg",
+      "/products/Highlights/rogue1-27.jpg",
+      "/products/Highlights/rogue1-38.jpg",
+      "/products/Highlights/rogue1-33.jpg",
+    ],
+  },
+  {
+    previewId: "preview-jerseys",
+    title: "2-in-1 Jerseys",
+    previewTitle: "Jerseys",
+    type: "Jersey",
+    carouselImages: [
+      "/products/Highlights/rogue1-65.jpg",
+      "/products/Highlights/rogue1-62.jpg",
+      "/products/Highlights/rogue1-70.jpg",
+      "/products/Highlights/rogue1-73.jpg",
+    ],
+  },
+  {
+    previewId: "preview-shirts",
+    title: "Skyline Shirt",
+    previewTitle: "Silhouette Shirt",
+    type: "Shirt",
+    carouselImages: [
+      "/products/Highlights/rogue1-51.jpg",
+      "/products/Highlights/rogue1-44.jpg",
+      "/products/Highlights/rogue1-54.jpg",
+      "/products/Highlights/rogue1-57.jpg",
+    ],
+  },
+];
+
+const categories = categoryDefs
+  .map((cat) => ({
+    ...cat,
+    products: allProducts.filter((p: ShopifyProduct) => p.productType === cat.type),
+  }))
+  .filter((cat) => cat.products.length > 0);
+
+function isSoldOut(product: ShopifyProduct) {
+  return product.variants.every((v) => !v.availableForSale);
+}
+
+function hasRealSizes(product: ShopifyProduct) {
+  return product.variants.some((v) => v.title !== "Default Title");
+}
 ---
 
 <html lang="en" class="no-js">
@@ -14,387 +72,90 @@ import TopLogo from "../components/TopLogo.astro";
     </script>
   </head>
   <body class="loading">
+    <div class="page-grain" aria-hidden="true"></div>
     <TopLogo />
     <FloatingNav client:only="react" />
+    <CartBadge />
 
     <main id="smooth-wrapper">
       <div id="smooth-content">
         <div class="scene-wrapper">
-          <!-- CAPS -->
-          <div class="scene" data-radius="650">
-            <h2 class="scene__title" data-speed="0.7">
-              <a href="#preview-caps"><span>hat</span></a>
-            </h2>
-            <div class="carousel">
-              <div class="carousel__cell">
-                <div class="card" style="--img: url(/products/Highlights/rogue1-22.jpg)">
-                  <div class="card__face card__face--front"></div>
-                  <div class="card__face card__face--back"></div>
+          {
+            categories.map((cat) => (
+              <div class="scene" data-radius="650">
+                <h2 class="scene__title" data-speed="0.7">
+                  <a href={`#${cat.previewId}`}><span>{cat.title}</span></a>
+                </h2>
+                <div class="carousel">
+                  {cat.carouselImages.map((src) => (
+                    <div class="carousel__cell">
+                      <div class="card" style={`--img: url(${src})`}>
+                        <div class="card__face card__face--front" />
+                        <div class="card__face card__face--back" />
+                        <div class="card__glow card__glow--bright" />
+                        <div class="card__glow card__glow--dim" />
+                      </div>
+                    </div>
+                  ))}
                 </div>
               </div>
-              <div class="carousel__cell">
-                <div class="card" style="--img: url(/products/Highlights/rogue1-27.jpg)">
-                  <div class="card__face card__face--front"></div>
-                  <div class="card__face card__face--back"></div>
-                </div>
-              </div>
-              <div class="carousel__cell">
-                <div class="card" style="--img: url(/products/Highlights/rogue1-38.jpg)">
-                  <div class="card__face card__face--front"></div>
-                  <div class="card__face card__face--back"></div>
-                </div>
-              </div>
-              <div class="carousel__cell">
-                <div class="card" style="--img: url(/products/Highlights/rogue1-33.jpg)">
-                  <div class="card__face card__face--front"></div>
-                  <div class="card__face card__face--back"></div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <!-- JERSEYS -->
-          <div class="scene" data-radius="650">
-            <h2 class="scene__title" data-speed="0.7">
-              <a href="#preview-jerseys"><span>2-in-1 Jerseys</span></a>
-            </h2>
-            <div class="carousel">
-              <div class="carousel__cell">
-                <div class="card" style="--img: url(/products/Highlights/rogue1-65.jpg)">
-                  <div class="card__face card__face--front"></div>
-                  <div class="card__face card__face--back"></div>
-                </div>
-              </div>
-              <div class="carousel__cell">
-                <div class="card" style="--img: url(/products/Highlights/rogue1-62.jpg)">
-                  <div class="card__face card__face--front"></div>
-                  <div class="card__face card__face--back"></div>
-                </div>
-              </div>
-              <div class="carousel__cell">
-                <div class="card" style="--img: url(/products/Highlights/rogue1-70.jpg)">
-                  <div class="card__face card__face--front"></div>
-                  <div class="card__face card__face--back"></div>
-                </div>
-              </div>
-              <div class="carousel__cell">
-                <div class="card" style="--img: url(/products/Highlights/rogue1-73.jpg)">
-                  <div class="card__face card__face--front"></div>
-                  <div class="card__face card__face--back"></div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <!-- SHIRTS -->
-          <div class="scene" data-radius="650">
-            <h2 class="scene__title" data-speed="0.7">
-              <a href="#preview-shirts"><span>Skyline Shirt</span></a>
-            </h2>
-            <div class="carousel">
-              <div class="carousel__cell">
-                <div class="card" style="--img: url(/products/Highlights/rogue1-51.jpg)">
-                  <div class="card__face card__face--front" style="background-position: top center;"></div>
-                  <div class="card__face card__face--back" style="background-position: top center;"></div>
-                </div>
-              </div>
-              <div class="carousel__cell">
-                <div class="card" style="--img: url(/products/Highlights/rogue1-44.jpg)">
-                  <div class="card__face card__face--front" style="background-position: top center;"></div>
-                  <div class="card__face card__face--back" style="background-position: top center;"></div>
-                </div>
-              </div>
-              <div class="carousel__cell">
-                <div class="card" style="--img: url(/products/Highlights/rogue1-54.jpg)">
-                  <div class="card__face card__face--front"></div>
-                  <div class="card__face card__face--back"></div>
-                </div>
-              </div>
-              <div class="carousel__cell">
-                <div class="card" style="--img: url(/products/Highlights/rogue1-57.jpg)">
-                  <div class="card__face card__face--front"></div>
-                  <div class="card__face card__face--back"></div>
-                </div>
-              </div>
-            </div>
-          </div>
+            ))
+          }
         </div>
       </div>
     </main>
 
     <!-- PREVIEW OVERLAYS — NOCTA grid -->
     <div class="preview-wrapper">
-
-      <!-- CAPS preview -->
-      <div class="preview" id="preview-caps">
-        <header class="preview__header">
-          <h2 class="preview__title"><span>The Cap</span></h2>
-          <button class="preview__close">Close ×</button>
-        </header>
-        <div class="nocta-bar">
-          <div class="nocta-bar__left">
-            <button class="nocta-pill active">All</button>
-            <button class="nocta-pill nocta-subtle">Size</button>
-            <button class="nocta-pill nocta-subtle">In Stock</button>
-            <button class="nocta-pill nocta-subtle">Price</button>
-          </div>
-          <div class="nocta-bar__right">
-            <button class="nocta-view active" data-cols="3" aria-label="3-col">
-              <svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor"><rect x="0" y="0" width="4" height="16"/><rect x="6" y="0" width="4" height="16"/><rect x="12" y="0" width="4" height="16"/></svg>
-            </button>
-            <button class="nocta-view" data-cols="2" aria-label="2-col">
-              <svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor"><rect x="0" y="0" width="7" height="16"/><rect x="9" y="0" width="7" height="16"/></svg>
-            </button>
-          </div>
-        </div>
-        <div class="grid">
-          <div class="grid__item">
-            <div class="grid__item-img-wrap">
-              <div class="grid__item-image" style="background-image: url(/products/Highlights/rogue1-22.jpg)"></div>
-              <span class="grid__badge">NEW</span>
-              <div class="grid__sizes"><button class="sz-chip">S</button><button class="sz-chip">M</button><button class="sz-chip">L</button><button class="sz-chip">XL</button><button class="sz-chip">XXL</button></div>
+      {
+        categories.map((cat) => (
+          <div class="preview" id={cat.previewId}>
+            <header class="preview__header">
+              <h2 class="preview__title"><span>{cat.previewTitle}</span></h2>
+              <button class="preview__close">Close ×</button>
+            </header>
+            <div class="nocta-bar">
+              <div class="nocta-bar__left">
+                <button class="nocta-pill active">All</button>
+                <button class="nocta-pill nocta-subtle">Size</button>
+                <button class="nocta-pill nocta-subtle">In Stock</button>
+                <button class="nocta-pill nocta-subtle">Price</button>
+              </div>
+              <div class="nocta-bar__right">
+                <button class="nocta-view active" data-cols="3" aria-label="3-col">
+                  <svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor"><rect x="0" y="0" width="4" height="16" /><rect x="6" y="0" width="4" height="16" /><rect x="12" y="0" width="4" height="16" /></svg>
+                </button>
+                <button class="nocta-view" data-cols="2" aria-label="2-col">
+                  <svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor"><rect x="0" y="0" width="7" height="16" /><rect x="9" y="0" width="7" height="16" /></svg>
+                </button>
+              </div>
             </div>
-            <div class="grid__info"><span class="grid__name">ROGU3 Cap — Brown</span><span class="grid__price">$45 CAD</span></div>
-          </div>
-          <div class="grid__item">
-            <div class="grid__item-img-wrap">
-              <div class="grid__item-image" style="background-image: url(/products/Highlights/rogue1-21.jpg)"></div>
-              <div class="grid__sizes"><button class="sz-chip">S</button><button class="sz-chip">M</button><button class="sz-chip">L</button><button class="sz-chip">XL</button><button class="sz-chip">XXL</button></div>
+            <div class="grid">
+              {cat.products.map((p) => (
+                <a href={`/shop/${p.handle}`} class="grid__item">
+                  <div class="grid__item-img-wrap">
+                    <div class="grid__item-image" style={`background-image: url(${p.images[0]})`} />
+                    {isSoldOut(p) && <span class="grid__status">Sold out</span>}
+                    {hasRealSizes(p) && (
+                      <div class="grid__sizes">
+                        {p.variants.map((v) => (
+                          <span class={`sz-chip${!v.availableForSale ? " sz-chip--unavailable" : ""}`}>
+                            {v.title}
+                          </span>
+                        ))}
+                      </div>
+                    )}
+                  </div>
+                  <div class="grid__info">
+                    <span class="grid__name">{p.title}</span>
+                    <span class="grid__price">{p.price}</span>
+                  </div>
+                </a>
+              ))}
             </div>
-            <div class="grid__info"><span class="grid__name">ROGU3 Cap — Brown</span><span class="grid__price">$45 CAD</span></div>
           </div>
-          <div class="grid__item">
-            <div class="grid__item-img-wrap">
-              <div class="grid__item-image" style="background-image: url(/products/Highlights/rogue1-27.jpg)"></div>
-              <div class="grid__sizes"><button class="sz-chip">S</button><button class="sz-chip">M</button><button class="sz-chip">L</button><button class="sz-chip">XL</button></div>
-            </div>
-            <div class="grid__info"><span class="grid__name">ROGU3 Cap — Brown</span><span class="grid__price">$45 CAD</span></div>
-          </div>
-          <div class="grid__item">
-            <div class="grid__item-img-wrap">
-              <div class="grid__item-image" style="background-image: url(/products/Highlights/rogue1-33.jpg)"></div>
-              <div class="grid__sizes"><button class="sz-chip">S</button><button class="sz-chip">M</button><button class="sz-chip">L</button><button class="sz-chip">XL</button></div>
-            </div>
-            <div class="grid__info"><span class="grid__name">ROGU3 Cap — Brown</span><span class="grid__price">$45 CAD</span></div>
-          </div>
-          <div class="grid__item">
-            <div class="grid__item-img-wrap">
-              <div class="grid__item-image" style="background-image: url(/products/rogu3-cap-brown.png)"></div>
-              <div class="grid__sizes"><button class="sz-chip">S</button><button class="sz-chip">M</button><button class="sz-chip">L</button></div>
-            </div>
-            <div class="grid__info"><span class="grid__name">ROGU3 Cap — Brown</span><span class="grid__price">$45 CAD</span></div>
-          </div>
-          <div class="grid__item">
-            <div class="grid__item-img-wrap">
-              <div class="grid__item-image" style="background-image: url(/products/Highlights/rogue1-38.jpg)"></div>
-              <span class="grid__badge">NEW</span>
-              <div class="grid__sizes"><button class="sz-chip">S</button><button class="sz-chip">M</button><button class="sz-chip">L</button><button class="sz-chip">XL</button></div>
-            </div>
-            <div class="grid__info"><span class="grid__name">ROGU3 Cap — Black</span><span class="grid__price">$45 CAD</span></div>
-          </div>
-          <div class="grid__item">
-            <div class="grid__item-img-wrap">
-              <div class="grid__item-image" style="background-image: url(/products/Highlights/rogue1-36.jpg)"></div>
-              <div class="grid__sizes"><button class="sz-chip">S</button><button class="sz-chip">M</button><button class="sz-chip">L</button><button class="sz-chip">XL</button></div>
-            </div>
-            <div class="grid__info"><span class="grid__name">ROGU3 Cap — Black</span><span class="grid__price">$45 CAD</span></div>
-          </div>
-          <div class="grid__item">
-            <div class="grid__item-img-wrap">
-              <div class="grid__item-image" style="background-image: url(/products/Highlights/rogue1-41.jpg)"></div>
-              <span class="grid__status">Sold out</span>
-              <div class="grid__sizes"><button class="sz-chip">M</button><button class="sz-chip">L</button></div>
-            </div>
-            <div class="grid__info"><span class="grid__name">ROGU3 Cap — Black</span><span class="grid__price">$45 CAD</span></div>
-          </div>
-          <div class="grid__item">
-            <div class="grid__item-img-wrap">
-              <div class="grid__item-image" style="background-image: url(/products/Highlights/rogue1-29.jpg)"></div>
-              <div class="grid__sizes"><button class="sz-chip">S</button><button class="sz-chip">M</button><button class="sz-chip">L</button></div>
-            </div>
-            <div class="grid__info"><span class="grid__name">ROGU3 Cap — Brown</span><span class="grid__price">$45 CAD</span></div>
-          </div>
-        </div>
-      </div>
-
-      <!-- JERSEYS preview -->
-      <div class="preview" id="preview-jerseys">
-        <header class="preview__header">
-          <h2 class="preview__title"><span>Jerseys</span></h2>
-          <button class="preview__close">Close ×</button>
-        </header>
-        <div class="nocta-bar">
-          <div class="nocta-bar__left">
-            <button class="nocta-pill active">All</button>
-            <button class="nocta-pill nocta-subtle">Size</button>
-            <button class="nocta-pill nocta-subtle">In Stock</button>
-            <button class="nocta-pill nocta-subtle">Price</button>
-          </div>
-          <div class="nocta-bar__right">
-            <button class="nocta-view active" data-cols="3" aria-label="3-col">
-              <svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor"><rect x="0" y="0" width="4" height="16"/><rect x="6" y="0" width="4" height="16"/><rect x="12" y="0" width="4" height="16"/></svg>
-            </button>
-            <button class="nocta-view" data-cols="2" aria-label="2-col">
-              <svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor"><rect x="0" y="0" width="7" height="16"/><rect x="9" y="0" width="7" height="16"/></svg>
-            </button>
-          </div>
-        </div>
-        <div class="grid">
-          <div class="grid__item">
-            <div class="grid__item-img-wrap">
-              <div class="grid__item-image" style="background-image: url(/products/Highlights/rogue1-65.jpg)"></div>
-              <span class="grid__badge">NEW</span>
-              <div class="grid__sizes"><button class="sz-chip">XS</button><button class="sz-chip">S</button><button class="sz-chip">M</button><button class="sz-chip">L</button><button class="sz-chip">XL</button></div>
-            </div>
-            <div class="grid__info"><span class="grid__name">2-in-1 Jersey — Brown</span><span class="grid__price">$85 CAD</span></div>
-          </div>
-          <div class="grid__item">
-            <div class="grid__item-img-wrap">
-              <div class="grid__item-image" style="background-image: url(/products/Highlights/rogue1-62.jpg)"></div>
-              <div class="grid__sizes"><button class="sz-chip">XS</button><button class="sz-chip">S</button><button class="sz-chip">M</button><button class="sz-chip">L</button><button class="sz-chip">XL</button></div>
-            </div>
-            <div class="grid__info"><span class="grid__name">2-in-1 Jersey — Brown</span><span class="grid__price">$85 CAD</span></div>
-          </div>
-          <div class="grid__item">
-            <div class="grid__item-img-wrap">
-              <div class="grid__item-image" style="background-image: url(/products/Highlights/rogue1-61.jpg)"></div>
-              <span class="grid__badge">EXCLUSIVE</span>
-              <div class="grid__sizes"><button class="sz-chip">XS</button><button class="sz-chip">S</button><button class="sz-chip">M</button><button class="sz-chip">L</button></div>
-            </div>
-            <div class="grid__info"><span class="grid__name">Womens Mesh Top</span><span class="grid__price">$75 CAD</span></div>
-          </div>
-          <div class="grid__item">
-            <div class="grid__item-img-wrap">
-              <div class="grid__item-image" style="background-image: url(/products/Highlights/rogue1-19.jpg)"></div>
-              <div class="grid__sizes"><button class="sz-chip">S</button><button class="sz-chip">M</button><button class="sz-chip">L</button><button class="sz-chip">XL</button></div>
-            </div>
-            <div class="grid__info"><span class="grid__name">2-in-1 Jersey — Brown</span><span class="grid__price">$85 CAD</span></div>
-          </div>
-          <div class="grid__item">
-            <div class="grid__item-img-wrap">
-              <div class="grid__item-image" style="background-image: url(/products/front_bball_rogu3.png)"></div>
-              <div class="grid__sizes"><button class="sz-chip">XS</button><button class="sz-chip">S</button><button class="sz-chip">M</button><button class="sz-chip">L</button><button class="sz-chip">XL</button></div>
-            </div>
-            <div class="grid__info"><span class="grid__name">2-in-1 Jersey — Brown</span><span class="grid__price">$85 CAD</span></div>
-          </div>
-          <div class="grid__item">
-            <div class="grid__item-img-wrap">
-              <div class="grid__item-image" style="background-image: url(/products/Highlights/rogue1-70.jpg)"></div>
-              <span class="grid__status">Sold out</span>
-              <div class="grid__sizes"><button class="sz-chip">M</button><button class="sz-chip">L</button></div>
-            </div>
-            <div class="grid__info"><span class="grid__name">2-in-1 Jersey — Black</span><span class="grid__price">$85 CAD</span></div>
-          </div>
-          <div class="grid__item">
-            <div class="grid__item-img-wrap">
-              <div class="grid__item-image" style="background-image: url(/products/Highlights/rogue1-73.jpg)"></div>
-              <span class="grid__status">Sold out</span>
-              <div class="grid__sizes"><button class="sz-chip">M</button></div>
-            </div>
-            <div class="grid__info"><span class="grid__name">2-in-1 Jersey — Black</span><span class="grid__price">$85 CAD</span></div>
-          </div>
-          <div class="grid__item">
-            <div class="grid__item-img-wrap">
-              <div class="grid__item-image" style="background-image: url(/products/Womens_meshtop.png)"></div>
-              <span class="grid__badge">EXCLUSIVE</span>
-              <div class="grid__sizes"><button class="sz-chip">XS</button><button class="sz-chip">S</button><button class="sz-chip">M</button><button class="sz-chip">L</button></div>
-            </div>
-            <div class="grid__info"><span class="grid__name">Womens Mesh Top</span><span class="grid__price">$75 CAD</span></div>
-          </div>
-        </div>
-      </div>
-
-      <!-- SHIRTS preview -->
-      <div class="preview" id="preview-shirts">
-        <header class="preview__header">
-          <h2 class="preview__title"><span>Silhouette Shirt</span></h2>
-          <button class="preview__close">Close ×</button>
-        </header>
-        <div class="nocta-bar">
-          <div class="nocta-bar__left">
-            <button class="nocta-pill active">All</button>
-            <button class="nocta-pill nocta-subtle">Size</button>
-            <button class="nocta-pill nocta-subtle">In Stock</button>
-            <button class="nocta-pill nocta-subtle">Price</button>
-          </div>
-          <div class="nocta-bar__right">
-            <button class="nocta-view active" data-cols="3" aria-label="3-col">
-              <svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor"><rect x="0" y="0" width="4" height="16"/><rect x="6" y="0" width="4" height="16"/><rect x="12" y="0" width="4" height="16"/></svg>
-            </button>
-            <button class="nocta-view" data-cols="2" aria-label="2-col">
-              <svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor"><rect x="0" y="0" width="7" height="16"/><rect x="9" y="0" width="7" height="16"/></svg>
-            </button>
-          </div>
-        </div>
-        <div class="grid">
-          <div class="grid__item">
-            <div class="grid__item-img-wrap">
-              <div class="grid__item-image" style="background-image: url(/products/Highlights/rogue1-44.jpg); background-position: top center;"></div>
-              <span class="grid__badge">NEW</span>
-              <div class="grid__sizes"><button class="sz-chip">S</button><button class="sz-chip">M</button><button class="sz-chip">L</button><button class="sz-chip">XL</button></div>
-            </div>
-            <div class="grid__info"><span class="grid__name">Skyline Shirt — Maroon</span><span class="grid__price">$110 CAD</span></div>
-          </div>
-          <div class="grid__item">
-            <div class="grid__item-img-wrap">
-              <div class="grid__item-image" style="background-image: url(/products/Highlights/rogue1-48.jpg); background-position: top center;"></div>
-              <div class="grid__sizes"><button class="sz-chip">S</button><button class="sz-chip">M</button><button class="sz-chip">L</button><button class="sz-chip">XL</button></div>
-            </div>
-            <div class="grid__info"><span class="grid__name">Skyline Shirt — Maroon</span><span class="grid__price">$110 CAD</span></div>
-          </div>
-          <div class="grid__item">
-            <div class="grid__item-img-wrap">
-              <div class="grid__item-image" style="background-image: url(/products/Highlights/rogue1-51.jpg); background-position: top center;"></div>
-              <div class="grid__sizes"><button class="sz-chip">S</button><button class="sz-chip">M</button><button class="sz-chip">L</button></div>
-            </div>
-            <div class="grid__info"><span class="grid__name">Skyline Shirt — Maroon</span><span class="grid__price">$110 CAD</span></div>
-          </div>
-          <div class="grid__item">
-            <div class="grid__item-img-wrap">
-              <div class="grid__item-image" style="background-image: url(/products/rogu3-skyline-shirt-front.png)"></div>
-              <div class="grid__sizes"><button class="sz-chip">S</button><button class="sz-chip">M</button><button class="sz-chip">L</button><button class="sz-chip">XL</button></div>
-            </div>
-            <div class="grid__info"><span class="grid__name">Skyline Shirt — Maroon</span><span class="grid__price">$110 CAD</span></div>
-          </div>
-          <div class="grid__item">
-            <div class="grid__item-img-wrap">
-              <div class="grid__item-image" style="background-image: url(/products/Highlights/rogue1-43.jpg)"></div>
-              <span class="grid__badge">NEW</span>
-              <div class="grid__sizes"><button class="sz-chip">S</button><button class="sz-chip">M</button><button class="sz-chip">L</button></div>
-            </div>
-            <div class="grid__info"><span class="grid__name">Skyline Shirt — Pink</span><span class="grid__price">$110 CAD</span></div>
-          </div>
-          <div class="grid__item">
-            <div class="grid__item-img-wrap">
-              <div class="grid__item-image" style="background-image: url(/products/Highlights/rogue1-54.jpg)"></div>
-              <div class="grid__sizes"><button class="sz-chip">S</button><button class="sz-chip">M</button><button class="sz-chip">L</button></div>
-            </div>
-            <div class="grid__info"><span class="grid__name">Skyline Shirt — Pink</span><span class="grid__price">$110 CAD</span></div>
-          </div>
-          <div class="grid__item">
-            <div class="grid__item-img-wrap">
-              <div class="grid__item-image" style="background-image: url(/products/Highlights/rogue1-57.jpg)"></div>
-              <div class="grid__sizes"><button class="sz-chip">S</button><button class="sz-chip">M</button><button class="sz-chip">L</button></div>
-            </div>
-            <div class="grid__info"><span class="grid__name">Skyline Shirt — Pink</span><span class="grid__price">$110 CAD</span></div>
-          </div>
-          <div class="grid__item">
-            <div class="grid__item-img-wrap">
-              <div class="grid__item-image" style="background-image: url(/products/Highlights/rogue1-58.jpg)"></div>
-              <div class="grid__sizes"><button class="sz-chip">S</button><button class="sz-chip">M</button></div>
-            </div>
-            <div class="grid__info"><span class="grid__name">Skyline Shirt — Pink</span><span class="grid__price">$110 CAD</span></div>
-          </div>
-          <div class="grid__item">
-            <div class="grid__item-img-wrap">
-              <div class="grid__item-image" style="background-image: url(/products/Highlights/rogue1-25.jpg)"></div>
-              <div class="grid__sizes"><button class="sz-chip">S</button><button class="sz-chip">M</button><button class="sz-chip">L</button></div>
-            </div>
-            <div class="grid__info"><span class="grid__name">Skyline Shirt — Maroon</span><span class="grid__price">$110 CAD</span></div>
-          </div>
-        </div>
-      </div>
-
+        ))
+      }
     </div>
     <!-- /preview-wrapper -->
 
@@ -447,6 +208,8 @@ import TopLogo from "../components/TopLogo.astro";
       const createScrollAnimation = (carousel) => {
         const wrapper = carousel.closest(".scene");
         const cards = carousel.querySelectorAll(".card");
+        const brightGlows = carousel.querySelectorAll(".card__glow--bright");
+        const dimGlows = carousel.querySelectorAll(".card__glow--dim");
         const titleSpan = wrapper.querySelector(".scene__title span");
         const split = splitMap.get(titleSpan);
         const chars = split?.chars || [];
@@ -457,14 +220,15 @@ import TopLogo from "../components/TopLogo.astro";
             trigger: wrapper,
             start: "top bottom",
             end: "bottom top",
-            scrub: true,
+            scrub: 0.5,
           },
         });
 
         carousel._timeline
           .fromTo(carousel, { rotationY: 0 }, { rotationY: -180 }, 0)
           .fromTo(carousel, { rotationZ: 3, rotationX: 3 }, { rotationZ: -3, rotationX: -3 }, 0)
-          .fromTo(cards, { filter: "brightness(250%)" }, { filter: "brightness(80%)", ease: "power3" }, 0)
+          .fromTo(brightGlows, { opacity: 0.55 }, { opacity: 0, ease: "power3" }, 0)
+          .fromTo(dimGlows, { opacity: 0 }, { opacity: 0.2, ease: "power3" }, 0)
           .fromTo(cards, { rotationZ: 10 }, { rotationZ: -10, ease: "none" }, 0);
 
         if (chars.length > 0) {
@@ -701,6 +465,7 @@ import TopLogo from "../components/TopLogo.astro";
         chip.addEventListener("click", (e) => {
           e.preventDefault();
           e.stopPropagation();
+          if (chip.classList.contains("sz-chip--unavailable")) return;
           chip.classList.toggle("selected");
         });
       });
@@ -777,13 +542,31 @@ import TopLogo from "../components/TopLogo.astro";
     text-transform: uppercase;
     margin: 0;
     color: var(--color-text);
-    background-color: var(--color-bg);
-    background-image: url(/brand/tunnel_bg.png);
-    background-repeat: repeat;
-    background-size: auto;
+    background-color: #08080a;
+    background-image:
+      radial-gradient(900px 600px at 12% 0%, rgba(255, 120, 60, 0.06), transparent 60%),
+      radial-gradient(1000px 700px at 88% 100%, rgba(60, 120, 255, 0.08), transparent 65%);
+    background-repeat: no-repeat;
+    background-attachment: fixed;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     animation: reveal 0.5s ease forwards;
+  }
+
+  .page-grain {
+    position: fixed;
+    inset: 0;
+    z-index: 1;
+    pointer-events: none;
+    opacity: 0.15;
+    mix-blend-mode: overlay;
+    background-image: repeating-linear-gradient(
+      0deg,
+      rgba(255, 255, 255, 0.05) 0px,
+      rgba(255, 255, 255, 0.05) 1px,
+      rgba(0, 0, 0, 0) 2px,
+      rgba(0, 0, 0, 0) 4px
+    );
   }
 
   @keyframes reveal {
@@ -848,7 +631,7 @@ import TopLogo from "../components/TopLogo.astro";
     left: 0; top: 0; transform-style: preserve-3d;
   }
 
-  .card { width: 100%; height: 100%; position: relative; transform-style: preserve-3d; }
+  .card { width: 100%; height: 100%; position: relative; transform-style: preserve-3d; will-change: transform; }
 
   .card__face {
     width: 100%; height: 100%; position: absolute;
@@ -857,6 +640,16 @@ import TopLogo from "../components/TopLogo.astro";
     border-radius: var(--border-radius);
   }
   .card__face--back { transform: rotateY(180deg); }
+
+  /* Opacity-only stand-ins for the old animated filter:brightness() —
+     compositor-friendly, no per-frame repaint during scroll. */
+  .card__glow {
+    position: absolute; inset: 0;
+    pointer-events: none;
+    backface-visibility: hidden;
+  }
+  .card__glow--bright { background: #fff; mix-blend-mode: screen; opacity: 0.55; }
+  .card__glow--dim { background: #000; mix-blend-mode: multiply; opacity: 0; }
 
   /* ── Preview overlay ────────────────────────────────────────────────────── */
   .preview-wrapper { position: relative; z-index: 100; }
@@ -934,6 +727,14 @@ import TopLogo from "../components/TopLogo.astro";
     .grid { grid-template-columns: repeat(2, 1fr); }
   }
 
+  /* ── Mobile: shrink the whole 3D scene so the fixed-size carousel fits ───── */
+  @media (max-width: 680px) {
+    .scene { transform: scale(0.55); }
+  }
+  @media (max-width: 460px) {
+    .scene { transform: scale(0.4); }
+  }
+
   /* ── Product card ───────────────────────────────────────────────────────── */
   .grid__item {
     background: var(--color-bg);
@@ -971,14 +772,6 @@ import TopLogo from "../components/TopLogo.astro";
     pointer-events: none; z-index: 2;
   }
 
-  /* NEW / EXCLUSIVE badge */
-  .grid__badge {
-    position: absolute; bottom: 3.25rem; left: 50%; transform: translateX(-50%);
-    font-size: 0.52rem; font-weight: 600; letter-spacing: 0.18em;
-    color: rgba(255, 255, 255, 0.65);
-    pointer-events: none; z-index: 2;
-  }
-
   /* Size chips — always visible, like NOCTA */
   .grid__sizes {
     position: absolute; bottom: 0.7rem; left: 0.7rem;
@@ -998,6 +791,12 @@ import TopLogo from "../components/TopLogo.astro";
   }
   .sz-chip:hover,
   .sz-chip.selected { background: #fff; color: #0f0e0e; border-color: #fff; }
+  .sz-chip--unavailable {
+    opacity: 0.35;
+    text-decoration: line-through;
+    cursor: not-allowed;
+  }
+  .sz-chip--unavailable:hover { background: rgba(15, 14, 14, 0.82); color: #fff; border-color: rgba(255, 255, 255, 0.45); }
 
   /* Info strip */
   .grid__info {

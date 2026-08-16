@@ -3,6 +3,11 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 ---
 
 <BaseLayout title="About — ROGU3">
+  <div class="ripple-bg" aria-hidden="true">
+    <div class="ripple-bg__ring"></div>
+    <div class="ripple-bg__ring"></div>
+    <div class="ripple-bg__ring"></div>
+  </div>
   <section class="about-hero">
     <p class="about-kicker">Est. 2024 — Toronto</p>
     <h1 class="about-title">Built for<br />the outliers.</h1>
@@ -42,6 +47,10 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 </BaseLayout>
 
 <style>
+  :global(body:has(.about-hero)) {
+    background: #000;
+  }
+
   .about-hero {
     min-height: 80vh;
     display: flex;

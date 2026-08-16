@@ -1,10 +1,10 @@
 ---
 import "../styles/global.css";
-import Navigation from "../components/Navigation.astro";
 import Footer from "../components/Footer.astro";
 import FloatingNav from "../components/FloatingNav";
 import TopLogo from "../components/TopLogo.astro";
-import { ViewTransitions } from "astro:transitions";
+import CartBadge from "../components/CartBadge.astro";
+import ClientRouter from "astro/components/ClientRouter.astro";
 
 const {
   title = "ROGU3",
@@ -22,13 +22,13 @@ const fullTitle = title === "ROGU3" ? "ROGU3" : `${title} • ROGU3`;
     <title>{fullTitle}</title>
 
     <!-- Enables smooth page transitions -->
-    <ViewTransitions />
+    <ClientRouter />
   </head>
 
   <body class={theme}>
-    <Navigation />
     <TopLogo />
     <FloatingNav client:only="react" />
+    <CartBadge />
 
     <main class="page">
       <slot />

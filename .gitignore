@@ -26,3 +26,10 @@ pnpm-debug.log*
 # external reference repos (not part of build)
 3DCarousel/
 src/assets/InfiniteTubes/
+
+# Local Netlify folder
+.netlify
+
+# Raw product photo dumps — not site assets, for manual Shopify admin upload only
+public/products/*.HEIC
+public/products/converted_for_shopify/

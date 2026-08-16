@@ -1,0 +1,228 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+---
+
+<BaseLayout title="Cart" theme="dark">
+  <section class="cartWrap">
+    <h1>Your Cart</h1>
+
+    <div id="cartEmpty" class="empty" hidden>
+      <p>Your cart is empty.</p>
+      <a href="/drops" class="link">Continue shopping →</a>
+    </div>
+
+    <div id="cartLines" class="lines"></div>
+
+    <div id="cartSummary" class="summary" hidden>
+      <div class="total">
+        <span>Total</span>
+        <span id="cartTotal"></span>
+      </div>
+      <a id="checkoutBtn" class="btn" href="#">Checkout</a>
+    </div>
+  </section>
+
+  <script>
+    import {
+      getCart,
+      updateCartLine,
+      removeCartLine,
+      type Cart,
+    } from "../lib/shopify";
+    import { getStoredCartId } from "../lib/cartClient";
+
+    const linesEl = document.querySelector<HTMLDivElement>("#cartLines");
+    const emptyEl = document.querySelector<HTMLDivElement>("#cartEmpty");
+    const summaryEl = document.querySelector<HTMLDivElement>("#cartSummary");
+    const totalEl = document.querySelector<HTMLSpanElement>("#cartTotal");
+    const checkoutBtn = document.querySelector<HTMLAnchorElement>("#checkoutBtn");
+
+    function render(cart: Cart | null) {
+      if (!linesEl || !emptyEl || !summaryEl || !totalEl || !checkoutBtn) return;
+
+      if (!cart || cart.lines.length === 0) {
+        emptyEl.hidden = false;
+        summaryEl.hidden = true;
+        linesEl.innerHTML = "";
+        return;
+      }
+
+      emptyEl.hidden = true;
+      summaryEl.hidden = false;
+      totalEl.textContent = cart.totalAmount;
+      checkoutBtn.href = cart.checkoutUrl;
+
+      linesEl.innerHTML = cart.lines
+        .map(
+          (line) => `
+        <div class="line" data-line-id="${line.id}">
+          ${line.image ? `<img class="lineImg" src="${line.image}" alt="${line.productTitle}" />` : ""}
+          <div class="lineInfo">
+            <a href="/shop/${line.productHandle}" class="lineTitle">${line.productTitle}</a>
+            ${line.variantTitle !== "Default Title" ? `<div class="lineVariant">${line.variantTitle}</div>` : ""}
+            <div class="linePrice">${line.price}</div>
+            <div class="lineControls">
+              <button type="button" class="qtyBtn" data-action="decrease" data-line-id="${line.id}" data-qty="${line.quantity}">−</button>
+              <span class="qty">${line.quantity}</span>
+              <button type="button" class="qtyBtn" data-action="increase" data-line-id="${line.id}" data-qty="${line.quantity}">+</button>
+              <button type="button" class="removeBtn" data-action="remove" data-line-id="${line.id}">Remove</button>
+            </div>
+          </div>
+        </div>
+      `
+        )
+        .join("");
+    }
+
+    async function loadCart() {
+      const cartId = getStoredCartId();
+      if (!cartId) {
+        render(null);
+        return;
+      }
+      const cart = await getCart(cartId);
+      render(cart);
+    }
+
+    linesEl?.addEventListener("click", async (e) => {
+      const target = e.target as HTMLElement;
+      const action = target.dataset.action;
+      const lineId = target.dataset.lineId;
+      const cartId = getStoredCartId();
+      if (!action || !lineId || !cartId) return;
+
+      target.setAttribute("disabled", "true");
+
+      try {
+        let cart: Cart;
+        if (action === "remove") {
+          cart = await removeCartLine(cartId, lineId);
+        } else {
+          const currentQty = Number(target.dataset.qty || "1");
+          const newQty = action === "increase" ? currentQty + 1 : currentQty - 1;
+          if (newQty <= 0) {
+            cart = await removeCartLine(cartId, lineId);
+          } else {
+            cart = await updateCartLine(cartId, lineId, newQty);
+          }
+        }
+        render(cart);
+        window.dispatchEvent(new CustomEvent("cart:updated", { detail: cart }));
+      } catch (err) {
+        console.error(err);
+      }
+    });
+
+    loadCart();
+  </script>
+
+  <style>
+    .cartWrap {
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 48px 22px 80px;
+    }
+    h1 {
+      margin: 0 0 24px;
+      font-size: 32px;
+    }
+    .empty {
+      opacity: 0.8;
+    }
+    .link {
+      color: inherit;
+      font-weight: 700;
+    }
+    .lines {
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+    }
+    /* .line* and .qtyBtn/.qty/.removeBtn are injected client-side via
+       innerHTML, so Astro's scoped-CSS attributes never reach them —
+       these must stay global or the rules silently no-op. */
+    :global(.line) {
+      display: flex;
+      gap: 14px;
+      padding-bottom: 18px;
+      border-bottom: 1px solid color-mix(in srgb, var(--text) 12%, transparent);
+    }
+    :global(.lineImg) {
+      width: 56px;
+      height: 56px;
+      object-fit: cover;
+      border-radius: 10px;
+      background: color-mix(in srgb, var(--text) 6%, transparent);
+      flex-shrink: 0;
+    }
+    :global(.lineInfo) {
+      flex: 1;
+    }
+    :global(.lineTitle) {
+      font-weight: 800;
+      color: inherit;
+      text-decoration: none;
+    }
+    :global(.lineVariant) {
+      opacity: 0.65;
+      font-size: 13px;
+      margin-top: 2px;
+    }
+    :global(.linePrice) {
+      margin-top: 6px;
+      font-weight: 700;
+    }
+    :global(.lineControls) {
+      margin-top: 10px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    :global(.qtyBtn) {
+      width: 28px;
+      height: 28px;
+      border-radius: 8px;
+      border: 1px solid color-mix(in srgb, var(--text) 20%, transparent);
+      background: color-mix(in srgb, var(--text) 6%, transparent);
+      color: var(--text);
+      cursor: pointer;
+      font-weight: 700;
+    }
+    :global(.qty) {
+      min-width: 1.5em;
+      text-align: center;
+      font-weight: 700;
+    }
+    :global(.removeBtn) {
+      margin-left: 12px;
+      border: 0;
+      background: none;
+      opacity: 0.6;
+      text-decoration: underline;
+      cursor: pointer;
+      font-size: 13px;
+    }
+    .summary {
+      margin-top: 28px;
+      border-top: 1px solid color-mix(in srgb, var(--text) 15%, transparent);
+      padding-top: 18px;
+    }
+    .total {
+      display: flex;
+      justify-content: space-between;
+      font-weight: 800;
+      font-size: 18px;
+      margin-bottom: 16px;
+    }
+    .btn {
+      display: block;
+      text-align: center;
+      padding: 14px 16px;
+      border-radius: 14px;
+      background: var(--text);
+      color: var(--bg);
+      text-decoration: none;
+      font-weight: 700;
+    }
+  </style>
+</BaseLayout>

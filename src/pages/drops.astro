@@ -1,9 +1,8 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
-import { products } from "../lib/mockProducts";
+import { getProducts } from "../lib/shopify";
 
-// Use duplicates so the grid looks full for now
-const items = [...products, ...products, ...products];
+const items = await getProducts();
 ---
 
 <BaseLayout title="Shop" theme="dark">

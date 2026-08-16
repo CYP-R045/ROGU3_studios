@@ -12,6 +12,8 @@ html, body {
   margin: 0;
   padding: 0;
   height: 100%;
+  max-width: 100%;
+  overflow-x: hidden;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
 }
 
@@ -504,6 +506,70 @@ html { scroll-behavior: smooth; }
 }
 
 /* ==========================================================
+   BLACK RIPPLE BACKGROUND — cheap, compositor-only animation
+   (transform + opacity only, no repaint, safe on mobile)
+========================================================== */
+.ripple-bg {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  overflow: hidden;
+  pointer-events: none;
+  background: #000;
+}
+
+.ripple-bg__ring {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 60vmax;
+  height: 60vmax;
+  margin: -30vmax 0 0 -30vmax;
+  border-radius: 50%;
+  border: 1px solid rgba(255, 255, 255, 0.09);
+  transform: scale(0.3);
+  opacity: 0;
+  animation: rippleOut 6s ease-out infinite;
+  will-change: transform, opacity;
+}
+
+.ripple-bg__ring:nth-child(2) { animation-delay: 2s; }
+.ripple-bg__ring:nth-child(3) { animation-delay: 4s; }
+
+@keyframes rippleOut {
+  0%   { transform: scale(0.3); opacity: 0; }
+  15%  { opacity: 0.5; }
+  100% { transform: scale(1); opacity: 0; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ripple-bg__ring { animation: none; opacity: 0.15; transform: scale(0.7); }
+}
+
+@media (max-width: 768px) {
+  .top-logo-link {
+    top: 0.75rem !important;
+    left: 1rem !important;
+  }
+  .top-logo-img {
+    height: clamp(120px, 16.5vw, 210px) !important;
+    margin-top: 0 !important;
+  }
+
+  .floating-nav-wrap {
+    left: 0.5rem !important;
+  }
+  .floating-nav-trigger {
+    width: 44px !important;
+    height: 44px !important;
+  }
+  .floating-nav-icon {
+    width: 28px !important;
+    height: 28px !important;
+  }
+}
+
+/* ==========================================================
    HOME (NOCTA-STYLE) — sticky media + overlay copy
    Only affects the new Home layout (index.astro)
 ========================================================== */
@@ -670,7 +736,6 @@ html { scroll-behavior: smooth; }
 @media (max-width: 720px) {
   .noctaHome__section { min-height: 170vh; }
   .noctaHome__overlay { margin-top: -58vh; max-width: 92vw; }
-  .noctaHome__img { width: min(92vw, 560px); }
 }
 
 .rogueIntroPage{

@@ -3,6 +3,11 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 ---
 
 <BaseLayout title="Contact — ROGU3">
+  <div class="ripple-bg" aria-hidden="true">
+    <div class="ripple-bg__ring"></div>
+    <div class="ripple-bg__ring"></div>
+    <div class="ripple-bg__ring"></div>
+  </div>
   <section class="contact-wrap">
     <div class="contact-left">
       <p class="contact-kicker">Get in touch</p>
@@ -54,6 +59,10 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 </BaseLayout>
 
 <style>
+  :global(body:has(.contact-wrap)) {
+    background: #000;
+  }
+
   .contact-wrap {
     min-height: 100vh;
     display: grid;
