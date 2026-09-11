@@ -1,5 +1,6 @@
 ---
-import ComingSoon from "../components/ComingSoon.astro";
+import "../styles/global.css";
+import LoadingScreen from "../components/LoadingScreen";
 ---
 
 <html lang="en">
@@ -8,7 +9,7 @@ import ComingSoon from "../components/ComingSoon.astro";
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>ROGU3</title>
   </head>
-  <body>
-    <ComingSoon />
+  <body style="margin:0;padding:0;overflow:hidden;background:#050505;">
+    <LoadingScreen client:only="react" />
   </body>
 </html>
