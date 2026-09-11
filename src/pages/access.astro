@@ -1,0 +1,123 @@
+---
+import "../styles/global.css";
+---
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="robots" content="noindex, nofollow" />
+    <title>ROGU3</title>
+  </head>
+  <body>
+    <main class="access">
+      <form id="accessForm" class="access__form">
+        <p class="access__label">Enter password</p>
+        <input
+          type="password"
+          id="accessPassword"
+          class="access__input"
+          autocomplete="off"
+          autofocus
+        />
+        <button type="submit" class="access__btn">Enter</button>
+        <p class="access__error" id="accessError" hidden>Wrong password</p>
+      </form>
+    </main>
+
+    <script>
+      const PASSWORD = "rogu3_faded";
+      const form = document.querySelector<HTMLFormElement>("#accessForm");
+      const input = document.querySelector<HTMLInputElement>("#accessPassword");
+      const error = document.querySelector<HTMLParagraphElement>("#accessError");
+
+      form?.addEventListener("submit", (e) => {
+        e.preventDefault();
+        if (input?.value === PASSWORD) {
+          localStorage.setItem("rogu3_unlocked", "1");
+          window.location.href = "/site";
+        } else if (error) {
+          error.hidden = false;
+          if (input) input.value = "";
+        }
+      });
+    </script>
+  </body>
+</html>
+
+<style>
+  html, body {
+    height: 100%;
+    margin: 0;
+    background: #050505;
+    color: #f5f5f7;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  }
+
+  .access {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .access__form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 14px;
+    width: min(320px, 86vw);
+  }
+
+  .access__label {
+    margin: 0 0 4px;
+    font-size: 11px;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    opacity: 0.5;
+  }
+
+  .access__input {
+    width: 100%;
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(255, 255, 255, 0.16);
+    border-radius: 999px;
+    padding: 13px 18px;
+    color: inherit;
+    font-size: 14px;
+    font-family: inherit;
+    text-align: center;
+    outline: none;
+    transition: border-color 0.2s ease, background 0.2s ease;
+  }
+
+  .access__input:focus {
+    border-color: rgba(255, 255, 255, 0.4);
+    background: rgba(255, 255, 255, 0.09);
+  }
+
+  .access__btn {
+    width: 100%;
+    padding: 13px 18px;
+    border-radius: 999px;
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    background: #f5f5f7;
+    color: #050505;
+    font-size: 13px;
+    font-family: inherit;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    cursor: pointer;
+    transition: transform 0.18s ease;
+  }
+
+  .access__btn:hover {
+    transform: translateY(-1px);
+  }
+
+  .access__error {
+    margin: 0;
+    font-size: 12px;
+    color: #ff8a8a;
+  }
+</style>
