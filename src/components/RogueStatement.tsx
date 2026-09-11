@@ -5,13 +5,13 @@ type GalleryKey = "studios" | "contact";
 
 const GALLERY_IMAGES: Record<GalleryKey, string[]> = {
   studios: [
-    "/studios/IMG_0853.jpg",
-    "/studios/IMG_6932.jpeg",
-    "/studios/RRR.jpeg",
-    "/studios/Screenshot 2026-09-10 at 23.57.17.jpeg",
-    "/studios/Screenshot 2026-09-10 at 23.58.28.jpeg",
-    "/studios/Screenshot 2026-09-10 at 23.59.54.jpeg",
-    "/studios/Screenshot 2026-09-11 at 00.06.45.jpeg",
+    "/media-studios/IMG_0853.jpg",
+    "/media-studios/IMG_6932.jpeg",
+    "/media-studios/RRR.jpeg",
+    "/media-studios/Screenshot 2026-09-10 at 23.57.17.jpeg",
+    "/media-studios/Screenshot 2026-09-10 at 23.58.28.jpeg",
+    "/media-studios/Screenshot 2026-09-10 at 23.59.54.jpeg",
+    "/media-studios/Screenshot 2026-09-11 at 00.06.45.jpeg",
   ].map(encodeURI),
   contact: [
     "/brand/Placeholder_H3.webp",
@@ -163,7 +163,7 @@ const RogueStatement: React.FC = () => {
       >
         <video
           ref={videoRef}
-          src="/studios/video/IMG_0148.mp4"
+          src="/media-studios/video/IMG_0148.mp4"
           muted
           loop
           playsInline
