@@ -1,10 +1,8 @@
 ---
 import "../styles/global.css";
-import Footer from "../components/Footer.astro";
 import FloatingNav from "../components/FloatingNav";
 import TopLogo from "../components/TopLogo.astro";
 import CartBadge from "../components/CartBadge.astro";
-import ClientRouter from "astro/components/ClientRouter.astro";
 
 const {
   title = "ROGU3",
@@ -20,9 +18,6 @@ const fullTitle = title === "ROGU3" ? "ROGU3" : `${title} • ROGU3`;
     <meta name="viewport" content="width=device-width, initial-scale=1" />
 
     <title>{fullTitle}</title>
-
-    <!-- Enables smooth page transitions -->
-    <ClientRouter />
   </head>
 
   <body class={theme}>
@@ -33,7 +28,5 @@ const fullTitle = title === "ROGU3" ? "ROGU3" : `${title} • ROGU3`;
     <main class="page">
       <slot />
     </main>
-
-    <Footer />
   </body>
 </html>

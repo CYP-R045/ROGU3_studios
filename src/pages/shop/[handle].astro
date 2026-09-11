@@ -1,5 +1,6 @@
 ---
 import BaseLayout from "../../layouts/BaseLayout.astro";
+import PolicyFooter from "../../components/PolicyFooter.astro";
 import { getProducts, type ShopifyProduct } from "../../lib/shopify";
 
 export async function getStaticPaths() {
@@ -12,6 +13,23 @@ export async function getStaticPaths() {
 
 interface Props { product: ShopifyProduct; }
 const { product } = Astro.props;
+
+// Buyers only need front + back to judge fit and finish — packaging/lifestyle
+// shots stay in Shopify's media library but don't belong on the product page.
+// By default we take Shopify's first 2 images, but Shopify's own image order
+// doesn't always put the clean front/back shots first — this override picks
+// specific photos (by filename substring) for products where that's the case,
+// so it's fixed here rather than depending on reordering media in Shopify.
+const FEATURED_IMAGES: Record<string, string[]> = {
+  rogu3_jersey_brown: ["IMG_0083_2", "IMG_0087"],
+};
+
+const featured = FEATURED_IMAGES[product.handle];
+const galleryImages = featured
+  ? featured
+      .map((needle) => product.images?.find((src) => src.includes(needle)))
+      .filter((src): src is string => Boolean(src))
+  : (product.images ?? []).slice(0, 2);
 ---
 
 <BaseLayout title={product.title} theme="dark">
@@ -20,14 +38,14 @@ const { product } = Astro.props;
       <img
         id="mainImg"
         class="img"
-        src={product.images?.[0]}
+        src={galleryImages[0]}
         alt={product.title}
       />
 
       {
-        product.images && product.images.length > 1 && (
+        galleryImages.length > 1 && (
           <div class="thumbs" aria-label="Image thumbnails">
-            {product.images.map((src, i) => (
+            {galleryImages.map((src, i) => (
               <button
                 class="thumb"
                 type="button"
@@ -69,6 +87,8 @@ const { product } = Astro.props;
       <p id="addToCartStatus" class="status" role="status"></p>
     </div>
   </section>
+
+  <PolicyFooter />
 
   <script>
     import { addToCart } from "../../lib/cartClient";

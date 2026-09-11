@@ -1,0 +1,49 @@
+---
+const items = ["Privacy Policy", "Shipping Policy", "Refund Policy", "Terms of Service"];
+---
+
+<footer class="policy-footer">
+  <span class="policy-footer__label">T&amp;C</span>
+  <ul class="policy-footer__list">
+    {items.map((item) => (
+      <li>{item}</li>
+    ))}
+  </ul>
+</footer>
+
+<style>
+  .policy-footer {
+    margin-top: clamp(48px, 8vw, 96px);
+    padding: 28px clamp(24px, 5vw, 80px) 40px;
+    border-top: 1px solid rgba(255, 255, 255, 0.07);
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 10px clamp(16px, 3vw, 32px);
+  }
+
+  .policy-footer__label {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    opacity: 0.45;
+  }
+
+  .policy-footer__list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px clamp(16px, 3vw, 28px);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .policy-footer__list li {
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    opacity: 0.35;
+    cursor: default;
+  }
+</style>

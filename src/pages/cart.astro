@@ -1,5 +1,6 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
+import PolicyFooter from "../components/PolicyFooter.astro";
 ---
 
 <BaseLayout title="Cart" theme="dark">
@@ -8,7 +9,7 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 
     <div id="cartEmpty" class="empty" hidden>
       <p>Your cart is empty.</p>
-      <a href="/drops" class="link">Continue shopping →</a>
+      <a href="/shop" class="link">Continue shopping →</a>
     </div>
 
     <div id="cartLines" class="lines"></div>
@@ -21,6 +22,8 @@ import BaseLayout from "../layouts/BaseLayout.astro";
       <a id="checkoutBtn" class="btn" href="#">Checkout</a>
     </div>
   </section>
+
+  <PolicyFooter />
 
   <script>
     import {

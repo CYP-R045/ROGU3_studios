@@ -1,6 +1,7 @@
 import React, { useRef, useState } from "react";
 import gsap from "gsap";
 import LoadingScreen from "./LoadingScreen";
+import RogueStatement from "./RogueStatement";
 
 const StudiosEntry: React.FC = () => {
   const [loadingDone, setLoadingDone] = useState(false);
@@ -55,9 +56,7 @@ const StudiosEntry: React.FC = () => {
         <h1 style={{ fontSize: "clamp(3.5rem, 9vw, 9rem)", fontWeight: 800, letterSpacing: "-0.03em", lineHeight: 0.92, margin: "0 0 1.5rem" }}>
           Studios
         </h1>
-        <p style={{ fontSize: "1rem", opacity: 0.5, maxWidth: "44ch", lineHeight: 1.6, marginBottom: "2.5rem" }}>
-          Where the work gets made. Film, design, and direction — coming soon.
-        </p>
+        <RogueStatement />
         <a href="/onboarding" style={{ fontSize: "0.72rem", letterSpacing: "0.14em", textTransform: "uppercase", color: "rgba(255,255,255,0.35)", textDecoration: "none", fontWeight: 600 }}>
           ← Back
         </a>

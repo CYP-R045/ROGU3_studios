@@ -3,6 +3,7 @@ import "../styles/global.css";
 import FloatingNav from "../components/FloatingNav";
 import TopLogo from "../components/TopLogo.astro";
 import CartBadge from "../components/CartBadge.astro";
+import PolicyFooter from "../components/PolicyFooter.astro";
 import { getProducts, type ShopifyProduct } from "../lib/shopify";
 
 const allProducts = await getProducts(50);
@@ -56,10 +57,6 @@ const categories = categoryDefs
 function isSoldOut(product: ShopifyProduct) {
   return product.variants.every((v) => !v.availableForSale);
 }
-
-function hasRealSizes(product: ShopifyProduct) {
-  return product.variants.some((v) => v.title !== "Default Title");
-}
 ---
 
 <html lang="en" class="no-js">
@@ -105,6 +102,8 @@ function hasRealSizes(product: ShopifyProduct) {
       </div>
     </main>
 
+    <PolicyFooter />
+
     <!-- PREVIEW OVERLAYS — NOCTA grid -->
     <div class="preview-wrapper">
       {
@@ -132,25 +131,20 @@ function hasRealSizes(product: ShopifyProduct) {
             </div>
             <div class="grid">
               {cat.products.map((p) => (
-                <a href={`/shop/${p.handle}`} class="grid__item">
-                  <div class="grid__item-img-wrap">
-                    <div class="grid__item-image" style={`background-image: url(${p.images[0]})`} />
-                    {isSoldOut(p) && <span class="grid__status">Sold out</span>}
-                    {hasRealSizes(p) && (
-                      <div class="grid__sizes">
-                        {p.variants.map((v) => (
-                          <span class={`sz-chip${!v.availableForSale ? " sz-chip--unavailable" : ""}`}>
-                            {v.title}
-                          </span>
-                        ))}
+                <>
+                  {p.images.slice(0, 3).map((src, i) => (
+                    <a href={`/shop/${p.handle}`} class="grid__item">
+                      <div class="grid__item-img-wrap">
+                        <div class="grid__item-image" style={`background-image: url(${src})`} />
+                        {i === 0 && isSoldOut(p) && <span class="grid__status">Sold out</span>}
                       </div>
-                    )}
-                  </div>
-                  <div class="grid__info">
+                    </a>
+                  ))}
+                  <a href={`/shop/${p.handle}`} class="grid__caption">
                     <span class="grid__name">{p.title}</span>
                     <span class="grid__price">{p.price}</span>
-                  </div>
-                </a>
+                  </a>
+                </>
               ))}
             </div>
           </div>
@@ -185,6 +179,7 @@ function hasRealSizes(product: ShopifyProduct) {
 
       const sceneWrapper = document.querySelector(".scene-wrapper");
       let isAnimating = false;
+      let activePreview = null;
       const splitMap = new Map();
 
       const getCarouselCellTransforms = (count, radius) => {
@@ -421,15 +416,18 @@ function hasRealSizes(product: ShopifyProduct) {
             gsap.set(preview, { pointerEvents: "auto", autoAlpha: 1 });
             animatePreviewGridIn(preview);
             animatePreviewTexts(preview, "in");
+            activePreview = preview;
+            history.pushState({ shopPreview: preview.id }, "", `#${preview.id}`);
           }, "<+=1.9");
       };
 
-      const deactivatePreviewToCarousel = (e) => {
-        if (isAnimating) return;
+      // Single source of truth for closing a preview back to the carousel —
+      // triggered by both the × button and the browser back button (via
+      // popstate below), so the two paths can never fall out of sync.
+      const closePreview = (preview) => {
+        if (isAnimating || !preview) return;
         isAnimating = true;
-
-        const preview = e.currentTarget.closest(".preview");
-        if (!preview) return;
+        activePreview = null;
 
         const { carousel, cards, chars } = getSceneElementsFromPreview(preview);
         animatePreviewTexts(preview, "out");
@@ -448,6 +446,18 @@ function hasRealSizes(product: ShopifyProduct) {
           .fromTo(cards, { autoAlpha: 0 }, { autoAlpha: 1 }, 0.3);
       };
 
+      const deactivatePreviewToCarousel = (e) => {
+        e.preventDefault();
+        if (isAnimating || !activePreview) return;
+        // Just pop the history entry the open push added — the popstate
+        // handler below runs the actual close animation.
+        history.back();
+      };
+
+      window.addEventListener("popstate", () => {
+        if (activePreview) closePreview(activePreview);
+      });
+
       // ── NOCTA grid density toggle ──────────────────────────────────────────
       document.querySelectorAll(".nocta-bar").forEach((bar) => {
         bar.querySelectorAll(".nocta-view").forEach((btn) => {
@@ -457,16 +467,6 @@ function hasRealSizes(product: ShopifyProduct) {
             const grid = bar.nextElementSibling; // the .grid div
             grid.dataset.cols = btn.dataset.cols;
           });
-        });
-      });
-
-      // ── Size chip toggle ───────────────────────────────────────────────────
-      document.querySelectorAll(".sz-chip").forEach((chip) => {
-        chip.addEventListener("click", (e) => {
-          e.preventDefault();
-          e.stopPropagation();
-          if (chip.classList.contains("sz-chip--unavailable")) return;
-          chip.classList.toggle("selected");
         });
       });
 
@@ -717,6 +717,10 @@ function hasRealSizes(product: ShopifyProduct) {
     display: grid;
     gap: 1px;
     background: rgba(255, 255, 255, 0.07);
+    /* Strict column counts: 3-up by default, 2-up via the density toggle —
+       always exactly that many per row regardless of viewport, matching the
+       reference layout. The single-product exception below overrides this
+       only when a category truly has just one item. */
     grid-template-columns: repeat(3, 1fr);
     width: 100%;
   }
@@ -742,6 +746,27 @@ function hasRealSizes(product: ShopifyProduct) {
     will-change: transform; transform-style: preserve-3d;
   }
 
+  /* When a category has just one product, it's the grid's only child —
+     give it a proper spotlight card instead of a bare rectangle floating
+     in black. Full categories keep the seamless edge-to-edge mosaic look. */
+  .grid:has(> .grid__item:only-child) {
+    grid-template-columns: minmax(0, 520px);
+    justify-content: center;
+    background: radial-gradient(700px 700px at 50% 42%, rgba(255, 255, 255, 0.06), transparent 70%);
+    padding: 5vh 0;
+  }
+  .grid__item:only-child {
+    border-radius: 20px;
+    overflow: hidden;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    box-shadow: 0 40px 90px rgba(0, 0, 0, 0.65);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  .grid__item:only-child:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 50px 110px rgba(0, 0, 0, 0.75);
+  }
+
   /* Padding-top trick: reliable aspect ratio across all browsers/contexts */
   .grid__item-img-wrap {
     position: relative;
@@ -761,6 +786,15 @@ function hasRealSizes(product: ShopifyProduct) {
   }
   .grid__item:hover .grid__item-image { transform: scale(1.03); }
 
+  /* Caption spans the full row width so the next product always starts on
+     a fresh row, regardless of how many of its photos (up to 3) preceded it. */
+  .grid__caption {
+    grid-column: 1 / -1;
+    display: flex; justify-content: space-between; align-items: baseline;
+    padding: 0.6rem 0.75rem 1.4rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.07);
+  }
+
   /* Sold out badge */
   .grid__status {
     position: absolute; top: 0.8rem; left: 50%; transform: translateX(-50%);
@@ -772,38 +806,6 @@ function hasRealSizes(product: ShopifyProduct) {
     pointer-events: none; z-index: 2;
   }
 
-  /* Size chips — always visible, like NOCTA */
-  .grid__sizes {
-    position: absolute; bottom: 0.7rem; left: 0.7rem;
-    display: flex; gap: 0.28rem; flex-wrap: wrap;
-    z-index: 2;
-  }
-
-  .sz-chip {
-    background: rgba(15, 14, 14, 0.82);
-    border: 1px solid rgba(255, 255, 255, 0.45);
-    color: #fff; font-family: inherit;
-    font-size: 0.5rem; font-weight: 600; letter-spacing: 0.06em;
-    text-transform: uppercase; cursor: pointer;
-    padding: 0.26rem 0.4rem; min-width: 1.8rem; text-align: center;
-    transition: background 0.15s, border-color 0.15s;
-    backdrop-filter: blur(4px); -webkit-backdrop-filter: blur(4px);
-  }
-  .sz-chip:hover,
-  .sz-chip.selected { background: #fff; color: #0f0e0e; border-color: #fff; }
-  .sz-chip--unavailable {
-    opacity: 0.35;
-    text-decoration: line-through;
-    cursor: not-allowed;
-  }
-  .sz-chip--unavailable:hover { background: rgba(15, 14, 14, 0.82); color: #fff; border-color: rgba(255, 255, 255, 0.45); }
-
-  /* Info strip */
-  .grid__info {
-    display: flex; justify-content: space-between; align-items: baseline;
-    padding: 0.6rem 0.75rem; flex-shrink: 0;
-    border-top: 1px solid rgba(255, 255, 255, 0.07);
-  }
   .grid__name {
     font-size: 0.65rem; font-weight: 400; letter-spacing: 0.04em;
     color: rgba(255, 255, 255, 0.82);
