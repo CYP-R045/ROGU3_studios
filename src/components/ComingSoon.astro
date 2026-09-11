@@ -27,6 +27,7 @@ import "../styles/global.css";
     <form
       name="signup"
       method="POST"
+      action="/thank-you"
       data-netlify="true"
       netlify-honeypot="bot-field"
       class="cs__signup"
@@ -45,7 +46,6 @@ import "../styles/global.css";
       />
       <button type="submit" class="cs__signup-btn">Notify me</button>
     </form>
-    <p class="cs__signup-status" id="csSignupStatus" hidden></p>
 
     <div class="cs__links">
       <a href="https://www.instagram.com/rogu3studios?stkn=MWs3MndhbXl5cHB0dA%3D%3D" target="_blank" rel="noopener" class="cs__link">
@@ -77,33 +77,9 @@ import "../styles/global.css";
   }, 4500);
 
   const signupForm = document.querySelector<HTMLFormElement>("#csSignupForm");
-  const signupStatus = document.querySelector<HTMLParagraphElement>("#csSignupStatus");
-
-  signupForm?.addEventListener("submit", async (e) => {
-    e.preventDefault();
+  signupForm?.addEventListener("submit", () => {
     const submitBtn = signupForm.querySelector<HTMLButtonElement>(".cs__signup-btn");
     if (submitBtn) submitBtn.disabled = true;
-
-    const body = new URLSearchParams(new FormData(signupForm) as any).toString();
-
-    try {
-      await fetch(window.location.pathname, {
-        method: "POST",
-        headers: { "Content-Type": "application/x-www-form-urlencoded" },
-        body,
-      });
-      signupForm.hidden = true;
-      if (signupStatus) {
-        signupStatus.hidden = false;
-        signupStatus.textContent = "You're on the list — we'll email you when we're live.";
-      }
-    } catch {
-      if (submitBtn) submitBtn.disabled = false;
-      if (signupStatus) {
-        signupStatus.hidden = false;
-        signupStatus.textContent = "Something went wrong — try again in a moment.";
-      }
-    }
   });
 </script>
 
@@ -264,13 +240,6 @@ import "../styles/global.css";
     opacity: 0.6;
     cursor: default;
     transform: none;
-  }
-
-  .cs__signup-status {
-    margin: 0 0 20px;
-    font-size: 13px;
-    opacity: 0.75;
-    max-width: 420px;
   }
 
   .cs__links {

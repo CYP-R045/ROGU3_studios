@@ -1,0 +1,73 @@
+---
+import "../styles/global.css";
+---
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="robots" content="noindex, nofollow" />
+    <title>ROGU3 — Thanks</title>
+  </head>
+  <body>
+    <main class="ty">
+      <img src="/brand/RS_wordlogo.PNG" alt="ROGU3" class="ty__logo" />
+      <h1 class="ty__title">You're on the list</h1>
+      <p class="ty__desc">We'll email you the moment we're live.</p>
+      <a href="/" class="ty__link">← Back</a>
+    </main>
+  </body>
+</html>
+
+<style>
+  html, body {
+    height: 100%;
+    margin: 0;
+    background: #050505;
+    color: #f5f5f7;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  }
+
+  .ty {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 24px;
+  }
+
+  .ty__logo {
+    height: clamp(60px, 9vw, 110px);
+    width: auto;
+    opacity: 0.95;
+    margin-bottom: 32px;
+  }
+
+  .ty__title {
+    margin: 0 0 12px;
+    font-size: clamp(28px, 5vw, 48px);
+    font-weight: 800;
+    letter-spacing: -0.02em;
+  }
+
+  .ty__desc {
+    margin: 0 0 28px;
+    font-size: 15px;
+    opacity: 0.65;
+  }
+
+  .ty__link {
+    color: rgba(255, 255, 255, 0.5);
+    text-decoration: none;
+    font-size: 12px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    font-weight: 600;
+  }
+
+  .ty__link:hover {
+    color: #f5f5f7;
+  }
+</style>
